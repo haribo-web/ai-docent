@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 도슨트 | 국립민속박물관</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>AI 도슨트</h1>
+    <p class="subtitle">국립민속박물관 상설전시관</p>
+    <div class="font-controls" aria-label="글자 크기">
+      <button type="button" data-font="down" aria-label="글자 작게">가-</button>
+      <button type="button" data-font="up" aria-label="글자 크게">가+</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>전시물 번호로 찾기</h2>
+      <p>전시물 옆에 적힌 번호를 입력하세요.</p>
+      <form id="exhibit-form" class="exhibit-form">
+        <label for="exhibit-id" class="visually-hidden">전시물 번호</label>
+        <input id="exhibit-id" name="id" type="text" inputmode="numeric" placeholder="예: 101" required>
+        <button type="submit" class="btn-primary">설명 듣기</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>이용 방법</h2>
+      <ol class="steps">
+        <li>전시물 번호를 입력합니다.</li>
+        <li>쉬운 설명 또는 자세한 설명을 고릅니다.</li>
+        <li>‘소리로 듣기’ 버튼을 누르면 설명을 읽어 줍니다.</li>
+      </ol>
+    </section>
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script>
+    document.getElementById("exhibit-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const id = document.getElementById("exhibit-id").value.trim();
+      if (id) location.href = `/exhibit.html?id=${encodeURIComponent(id)}`;
+    });
+  </script>
+</body>
+</html>

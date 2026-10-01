@@ -1,0 +1,173 @@
+/* 기본 원칙: 큰 글씨, 큰 버튼, 높은 명암 대비 (디지털 기기에 익숙하지 않은 관람객 배려) */
+
+:root {
+  --font-size: 20px;
+  --color-bg: #faf7f2;
+  --color-surface: #ffffff;
+  --color-text: #1f1a17;
+  --color-muted: #5c544d;
+  --color-primary: #8a2d1c; /* 전통 단청의 붉은색 계열 */
+  --color-primary-text: #ffffff;
+  --color-border: #d9d1c7;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-size);
+}
+
+body {
+  margin: 0;
+  font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  line-height: 1.7;
+  background: var(--color-bg);
+  color: var(--color-text);
+  word-break: keep-all;
+}
+
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+.site-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.subtitle {
+  margin: 0;
+  flex-basis: 100%;
+  order: 3;
+}
+
+.back-link {
+  color: var(--color-primary-text);
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.font-controls button {
+  min-width: 3rem;
+  min-height: 2.6rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid var(--color-primary-text);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-primary-text);
+  cursor: pointer;
+}
+
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.card h1,
+.card h2 {
+  margin-top: 0;
+}
+
+.meta {
+  color: var(--color-muted);
+}
+
+.description {
+  font-size: 1.1rem;
+  white-space: pre-line;
+}
+
+.exhibit-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.exhibit-form input {
+  flex: 1 1 12rem;
+  min-height: 3rem;
+  padding: 0 0.75rem;
+  font-size: 1.1rem;
+  border: 2px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.btn-primary {
+  min-height: 3rem;
+  padding: 0 1.25rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+  cursor: pointer;
+}
+
+.btn-wide {
+  width: 100%;
+}
+
+.level-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.level-tabs button {
+  flex: 1;
+  min-height: 3rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid var(--color-primary);
+  border-radius: 10px;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  cursor: pointer;
+}
+
+.level-tabs button.active {
+  background: var(--color-primary);
+  color: var(--color-primary-text);
+}
+
+.steps li {
+  margin-bottom: 0.5rem;
+}
+
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 3px solid #f2b705;
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

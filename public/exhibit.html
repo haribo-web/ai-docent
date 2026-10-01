@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>전시물 설명 | AI 도슨트</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="back-link">← 처음으로</a>
+    <div class="font-controls" aria-label="글자 크기">
+      <button type="button" data-font="down" aria-label="글자 작게">가-</button>
+      <button type="button" data-font="up" aria-label="글자 크게">가+</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h1 id="exhibit-title">전시물 불러오는 중…</h1>
+      <p id="exhibit-meta" class="meta"></p>
+
+      <div class="level-tabs" role="group" aria-label="설명 수준">
+        <button type="button" data-level="easy" class="active">쉬운 설명</button>
+        <button type="button" data-level="detail">자세한 설명</button>
+      </div>
+
+      <p id="exhibit-description" class="description" aria-live="polite"></p>
+
+      <button type="button" id="speak-btn" class="btn-primary btn-wide">🔊 소리로 듣기</button>
+    </section>
+
+    <section class="card">
+      <h2>AI 도슨트에게 물어보기</h2>
+      <form id="ask-form" class="exhibit-form">
+        <label for="question" class="visually-hidden">질문</label>
+        <input id="question" type="text" placeholder="궁금한 점을 입력하세요">
+        <button type="submit" class="btn-primary">질문하기</button>
+      </form>
+      <p id="answer" class="description" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/exhibit.js"></script>
+</body>
+</html>

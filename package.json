@@ -1,0 +1,13 @@
+{
+  "name": "ai-docent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "국립민속박물관 상설전시관 AI 도슨트 웹 서비스 (큐레이터즈)",
+  "type": "module",
+  "scripts": {
+    "dev": "node dev-server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
