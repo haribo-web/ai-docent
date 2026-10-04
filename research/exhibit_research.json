@@ -1,0 +1,496 @@
+{
+  "meta": {
+    "exhibition": "국립민속박물관 상설전시관 1 《한국인의 오늘》",
+    "researched_at": "2026-10-03",
+    "notice": "상설전시관1은 2026-09-30부터 휴관했으며, 2026-12-22 '세계인의 얼굴'(가제)로 개편해 재개관할 예정이다 (국립민속박물관 공지). 이 자료의 작품들은 현재 전시장에서 볼 수 없다.",
+    "notice_source": "https://www.nfm.go.kr/user/museumbbs/home/1/1243/selectMuseumBbsView.do?museumBbsIdx=14485",
+    "verification_marker": "'[검수 필요]'가 붙은 문장은 사람이 확인하기 전에는 AI 답변에 쓰지 않는다.",
+    "exhibition_context": "전시는 K-컬처를 한국인이 공유해 온 일상과 민속문화로 보여준다. 구성은 프롤로그(K-, 전통과 현대를 아우르다), 쓸모 있는, 자연스러운, 함께 하는, 에필로그(The K-존)이다. 기획의 핵심은 '타자(세계인)의 시선으로 본 우리의 일상'이며, 케이컬처는 평범한 나날이 쌓인 것이라는 메시지를 전한다.",
+    "exhibition_context_sources": [
+      "https://www.nfm.go.kr/home/subIndex/11.do",
+      "https://nfm.go.kr/home/1428/userVideoChannelDetail.do?no=1016"
+    ]
+  },
+  "exhibits": [
+    {
+      "title": "Round Ban",
+      "artist": "하지훈(河志勳, 1972~)",
+      "chapter": "프롤로그: K-, 전통과 현대를 아우르다",
+      "basic_description": "전통 원형 소반(둥근 밥상)의 형태를 현대적인 재료와 감각으로 재해석한 작품이다. 둥글고 얕은 상판 아래에 원통형 다리를 연결했으며, 다리는 알루미늄을 성형해 색을 입혔다. 담당 학예연구사가 프롤로그의 대표작으로 소개했다.",
+      "work_info": {
+        "year": "확인되지 않음 (국립민속박물관 DB: '한국-2000년 이후'. 참고로 V&A 소장 동일 시리즈는 2014년 제작)",
+        "material": "다리: 알루미늄(아노다이징 착색). 상판: 국립민속박물관 DB에 기재 없음 (V&A 소장본은 바니시 칠한 소나무) [검수 필요]",
+        "size": "국립민속박물관 소장 3점: 071411 지름 38.5·높이 24.7 / 071412 지름 35·높이 18 / 071413 지름 36.5·높이 9.3 (단위 미기재, cm 추정 [검수 필요])",
+        "technique": "상판(천판)에 다리를 연결한 구조. 다리는 알루미늄을 성형한 뒤 아노다이징으로 표면을 착색함.",
+        "other": "국립민속박물관 소장품 번호 071411·071412·071413. 분류: 식-음식기-반상-소반 / 문화예술-공예-목공예품. 전시에 3점이 모두 나왔는지는 확인되지 않음 [검수 필요]."
+      },
+      "historical_cultural_context": "소반은 음식 그릇을 올려놓는 작은 상으로, 좌식생활을 하던 조선시대에 꼭 필요한 가구였다. 나무 상판에 다리를 연결한 구조이며, 다리 모양에 따라 호족반·구족반·단각반, 생산지에 따라 통영반·나주반·해주반 등으로 나뉜다. 남녀 구분과 나이에 따른 위계를 중시한 유교적 생활 문화 때문에 혼자 쓰는 상(독상)이 선호되었다는 설명이 있다(한국민족문화대백과사전). V&A는 소반이 부엌에서 식사 공간으로 음식을 나르는 쟁반 역할도 했고, 원반은 전통적으로 나무 한 덩어리를 깎아 만들었다고 설명한다.",
+      "exhibition_meaning": "프롤로그는 전통 요소를 오늘의 시각에서 계속 적용하는 시도와 실험이 또 다른 전통을 만들며, 그것을 K라 부른다는 주제를 다룬다. 학예연구사는 좌식생활을 해 온 한국인에게 소반은 빼놓을 수 없는 물건이며, 이 작품은 그 소반을 현대적 재료와 감각으로 재해석한 대표 사례라고 소개했다.",
+      "additional_information": "하지훈 작가는 2020년 '올해의 공예상'을 받았고, 작품이 영국 V&A와 미국 필라델피아 미술관에 소장되어 있다(국립민속박물관 공식 X). 국립민속박물관에서는 같은 작가의 'Hojok shelf'도 볼 수 있었다. V&A 설명에 따르면 상판과 다리를 분리해 제작을 쉽게 하고 낭비를 줄였으며, 다리에 남은 가공 홈은 전통 원반을 선반으로 깎을 때 생기는 홈을 떠올리게 한다. 같은 프롤로그의 금기숙 '장옷·저고리'와 함께 '전통의 현대적 재해석' 대표작으로 묶여 소개되었다.",
+      "expected_questions": [
+        {
+          "question": "이 작품은 무엇인가요?",
+          "answer_basis": "전통 원형 소반을 현대 재료로 재해석한 작품 (국립민속박물관 소장품 DB)"
+        },
+        {
+          "question": "소반이 뭐예요? 옛날에는 어떻게 썼나요?",
+          "answer_basis": "좌식생활용 작은 상, 음식을 나르는 쟁반 역할, 독상 문화 (한국민족문화대백과사전, V&A)"
+        },
+        {
+          "question": "왜 다리를 알루미늄으로 만들었나요?",
+          "answer_basis": "알루미늄 성형과 아노다이징 (국립민속박물관 DB). 상판·다리 분리로 제작 효율과 낭비 감소 (V&A). 작가 본인의 의도는 공식 자료에서 확인되지 않음 [검수 필요]"
+        },
+        {
+          "question": "왜 이 작품이 전시 맨 앞에 있나요?",
+          "answer_basis": "프롤로그 주제와 학예연구사 해설 (국립민속박물관 영상)"
+        },
+        {
+          "question": "전통 소반에는 어떤 종류가 있나요?",
+          "answer_basis": "호족반·구족반·단각반, 통영반·나주반·해주반 (한국민족문화대백과사전)"
+        }
+      ],
+      "sources": [
+        {
+          "title": "소장품 Round ban (071411)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100107141100000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 Round ban (071412)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100107141200000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 Round ban (071413)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100107141300000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "[전시라이브러리] 상설전시 '한국인의 오늘' 재개관 (영상 자막)",
+          "institution": "국립민속박물관",
+          "url": "https://nfm.go.kr/home/1428/userVideoChannelDetail.do?no=1016",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "국립민속박물관 공식 X 게시물 (하지훈 작가 소개)",
+          "institution": "국립민속박물관",
+          "url": "https://x.com/tnfmk/status/1898980014630096921",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "Round ban series (FE.12:1 to 3-2015)",
+          "institution": "Victoria and Albert Museum",
+          "url": "https://collections.vam.ac.uk/item/O1290138/round-ban-series-dining-table-ha-jihoon-%ED%95%98%EC%A7%80%ED%9B%88/",
+          "source_type": "공공기관자료"
+        },
+        {
+          "title": "소반",
+          "institution": "한국학중앙연구원 (한국민족문화대백과사전)",
+          "url": "https://encykorea.aks.ac.kr/Article/E0030068",
+          "source_type": "공공기관자료"
+        }
+      ]
+    },
+    {
+      "title": "장옷과 저고리",
+      "artist": "금기숙",
+      "chapter": "프롤로그: K-, 전통과 현대를 아우르다",
+      "basic_description": "조선시대 여성의 옷인 장옷과 저고리를 모티브로 철사와 구슬로 만든 설치작품이다. 검은 철사를 꼬아 옷의 형태를 잡고 색 구슬을 꿰어 옷감의 색과 명암을 표현했다. 입기 위한 옷이 아니라 전통 복식의 선과 형태를 조형 예술로 보여주는 작품이다.",
+      "work_info": {
+        "year": "확인되지 않음 (국립민속박물관 DB: '한국-2000년 이후')",
+        "material": "철사(Wire), 구슬(Beads)",
+        "size": "장옷(071497): 길이 146, 화장 85, 품 57 / 저고리(071120): 화장 65, 등길이 56, 품 71 (단위 미기재, cm 추정 [검수 필요])",
+        "technique": "장옷: 검은 철사를 꼬아 형태를 만들고 전체에 구슬을 꿰었다. 몸판은 녹색 구슬, 깃·고름·겨드랑이 사각 무는 자주색 구슬로 표현했다. 목판깃이며, 소매는 진동이 수구보다 넓어 배래가 사선이다. 저고리: 소매 배래가 곡선이고 동정이 달렸으며 겉고름 한 쌍이 묶인 형태다.",
+        "other": "국립민속박물관 소장품 번호 장옷 071497, 저고리 071120. 같은 작가의 철사·구슬 작품 '직령'(071119)도 소장. 분류: 문화예술-공예-금속공예품/유리공예품."
+      },
+      "historical_cultural_context": "장옷은 조선시대 여성이 외출할 때 머리에 써서 얼굴만 드러내던 쓰개다. 두루마기와 비슷한 모양에 겉감은 초록, 안감은 자주색이고, 소매 끝에 흰 거들지를 달았으며 깃과 고름은 자주색이다. 남녀를 엄격히 구분한 조선의 내외법과 관련 있고, 조선 후기에 다른 쓰개와 섞이며 점차 사라졌다(한국민족문화대백과사전). 착용 계층(서민 여성 / 양반·궁중 여성)에 대한 서술은 자료마다 다르다 [검수 필요]. 저고리는 바지·저고리·포로 이루어진 한국 옷의 기본 구성 요소이며, 시대에 따라 길이가 달라졌다 [세부 연대 검수 필요].",
+      "exhibition_meaning": "학예연구사는 이 작품을 조선시대 여성 복식을 모티브로 비즈와 철사로 빚어낸 작품으로 소개했다. 하지훈의 Round Ban과 함께 '전통 요소를 현대적 감각으로 재해석한' 프롤로그의 대표작이다. 전통 요소를 오늘의 시각으로 적용하는 실험이 또 다른 전통이 되고 그것이 K라는 프롤로그의 주제와 연결된다.",
+      "additional_information": "금기숙 작가는 패션과 미술의 경계를 넘나드는 '패션아트' 분야를 개척한 작가로 소개되며, 2018 평창동계올림픽 개회식 '눈꽃요정' 의상으로 알려졌다(서울시 미디어허브). 1952년생이며, 1990년대 후반 거미줄에 맺힌 이슬에서 영감을 받아 철사에 구슬을 꿰는 작업을 시작했다고 한다 [언론 기준, 검수 필요]. 2025-12-30~2026-03-15 서울공예박물관에서 기증특별전 'Dancing, Dreaming, Enlightening'이 열렸다. 작품의 녹색 몸판과 자주색 깃·고름은 전통 장옷 배색과 일치하지만, 작가 의도라는 공식 설명은 없다. 같은 전시의 '자연스러운' 챕터에서도 저고리, 색동저고리, 여성 쓰개(아얌, 조바위)를 다룬다.",
+      "expected_questions": [
+        {
+          "question": "이건 진짜 입는 옷인가요? 무엇으로 만들었나요?",
+          "answer_basis": "철사와 구슬로 만든 설치작품 (국립민속박물관 소장품 DB)"
+        },
+        {
+          "question": "장옷은 뭐예요? 어떻게 입었나요?",
+          "answer_basis": "머리에 쓰고 얼굴만 드러내는 외출용 쓰개, 내외법 (한국민족문화대백과사전)"
+        },
+        {
+          "question": "저고리와 장옷은 무엇이 다른가요?",
+          "answer_basis": "저고리는 상의, 장옷은 두루마기 모양의 쓰개 (한국민족문화대백과사전)"
+        },
+        {
+          "question": "왜 철사와 구슬로 만들었나요?",
+          "answer_basis": "작가의 패션아트 작업 방식 (서울시 미디어허브, 언론). 이 작품의 개별 제작 의도는 공식 자료에서 확인되지 않음 [검수 필요]"
+        },
+        {
+          "question": "왜 초록색이에요?",
+          "answer_basis": "전통 장옷 배색(초록 겉감·자주 깃·고름)과 작품 색 구성의 일치. 작가 의도는 확인되지 않음"
+        }
+      ],
+      "sources": [
+        {
+          "title": "소장품 장옷 (071497)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100107149700000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 저고리 (071120)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100107112000000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 직령 (071119, 참고)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100107111900000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "[전시라이브러리] 상설전시 '한국인의 오늘' 재개관 (영상 자막)",
+          "institution": "국립민속박물관",
+          "url": "https://nfm.go.kr/home/1428/userVideoChannelDetail.do?no=1016",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "장옷",
+          "institution": "한국학중앙연구원 (한국민족문화대백과사전)",
+          "url": "https://encykorea.aks.ac.kr/Article/E0048702",
+          "source_type": "공공기관자료"
+        },
+        {
+          "title": "옷이 예술이 되는 현장! 금기숙 작가에게 듣는 패션 아트의 매력",
+          "institution": "서울특별시 (미디어허브)",
+          "url": "https://mediahub.seoul.go.kr/archives/2016833",
+          "source_type": "공공기관자료"
+        },
+        {
+          "title": "입는 옷에서 조형 예술로…금기숙이 연 '패션아트'의 세계 (2025-12-30)",
+          "institution": "이데일리",
+          "url": "https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01617046642403768",
+          "source_type": "기타"
+        }
+      ]
+    },
+    {
+      "title": "한국의 모습",
+      "artist": "제임스 스카스 게일 (James Scarth Gale, 1863~1937), 한국 이름 기일(奇一)",
+      "chapter": "에필로그: The K-존",
+      "basic_description": "[검수 필요: 전시물이 Korean Sketches(1898)라는 가정에 기반함. 국립민속박물관 소장품 DB에서 이 책을 찾지 못함] 캐나다 출신 선교사 제임스 게일이 1888년부터 약 9년간 조선에서 보고 겪은 일을 엮은 기행·견문록이다. 서문에서 게일은 서양 독자에게 한국인의 삶과 성격을 알리기 위해 이 책을 썼다고 밝힌다. 조선 말기 한국인의 평범한 일상과 풍습을 외국인의 눈으로 기록한 자료다.",
+      "work_info": {
+        "year": "1898년 (Korean Sketches 판권 c1898 기준. 전시본의 판본은 확인되지 않음 [검수 필요])",
+        "material": "인쇄본(책). 전시본의 상태는 확인되지 않음",
+        "size": "확인되지 않음",
+        "technique": "인쇄 단행본. 원문 기준 뉴욕 F. H. Revell 발행, 284쪽",
+        "other": "원문 목차 13장: 첫인상, 짐꾼, 압록강 너머, 가난에서 부로, 한국의 조랑말, 한국 횡단, 한국의 소년, 한국의 설날, 한국인의 마음, 한국의 양반, 한국의 현재 상황, 특별한 친구들, 선교 이야기. 서문은 원산에서 작성. 국립민속박물관 소장 게일 관련 자료는 Korea in Transition(1909), The Vanguard(1904), 게일 사진."
+      },
+      "historical_cultural_context": "게일은 1888년 캐나다 토론토대학을 졸업하고 같은 해 12월 부산항에 도착해, 토론토대학 YMCA의 파송으로 선교를 시작했다. 1900~1927년 연못골교회(현 연동교회) 목사로 일했고, 1928년 한국을 떠날 때까지 약 40년간 활동하며 선교사 중 가장 많은 저술을 남겼다. 1897년 『한영자전』을 펴냈고, 『구운몽』·『춘향전』·『심청전』을 영어로, 『천로역정』·『로빈슨 크루소』를 한국어로 옮겼다(한국민족문화대백과사전). 이 책이 다루는 1888~1897년은 개항 이후 조선 말기, 대한제국 선포(1897) 직전 시기다. 서문에서 게일은 한국인을 '은자의 나라(Hermit Kingdom)' 사람들로 부른다.",
+      "exhibition_meaning": "에필로그 'The K-존'에는 19~20세기 세계인이 한국인의 평범한 '오늘'을 기록한 기행문, 신문·잡지, 삽화, 사진 자료가 모여 있다. 학예연구사는 이 기록 속 한국인이 특별한 모습이 아니라 평범하게 생활하는 모습 그대로였으며, 케이컬처는 평범한 나날의 축적이라고 설명했다. 이 책만을 다룬 공식 해설은 찾지 못했다.",
+      "additional_information": "한국민족문화대백과사전은 Korean Sketches를 '조선의 풍물'로 번역해 표기한다. 한국어 번역본 『조선, 그 마지막 10년의 기록』이 출간되었다 [언론 기준, 번역자·연도 검수 필요]. 원문은 인터넷 아카이브에서 볼 수 있다(미국 기준 저작권 만료). 같은 에필로그의 엘리자베스 키스 자료, 내셔널 지오그래픽과 함께 '외국인이 기록한 조선' 묶음이다.",
+      "expected_questions": [
+        {
+          "question": "게일은 누구인가요?",
+          "answer_basis": "생애, 한영자전, 번역 활동 (한국민족문화대백과사전)"
+        },
+        {
+          "question": "이 책에는 어떤 내용이 있나요?",
+          "answer_basis": "원문 목차 13장 (Internet Archive 원문 사본) [전시본 확인 후 사용]"
+        },
+        {
+          "question": "외국인은 그때 한국을 어떻게 봤나요?",
+          "answer_basis": "서문의 집필 의도와 '은자의 나라' 표현 (원문), 에필로그 기획 의도 (국립민속박물관 영상)"
+        },
+        {
+          "question": "왜 이 책이 K-컬처 전시에 있나요?",
+          "answer_basis": "에필로그 기획 의도 (국립민속박물관 영상)"
+        },
+        {
+          "question": "한국어로도 읽을 수 있나요?",
+          "answer_basis": "번역본 『조선, 그 마지막 10년의 기록』 (언론) [검수 필요]"
+        }
+      ],
+      "sources": [
+        {
+          "title": "[전시라이브러리] 상설전시 '한국인의 오늘' 재개관 (영상 자막)",
+          "institution": "국립민속박물관",
+          "url": "https://nfm.go.kr/home/1428/userVideoChannelDetail.do?no=1016",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 KOREA IN TRANSITION (085284, 참고)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100108528400000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 THE VANGUARD. A TALE OF KOREA (070918, 참고)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100107091800000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 닥터 게일 사진 (085285)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100108528500000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "코리아 인트랜지션(Korea in Transition)",
+          "institution": "한국학중앙연구원 (한국민족문화대백과사전)",
+          "url": "https://encykorea.aks.ac.kr/Article/E0076594",
+          "source_type": "공공기관자료"
+        },
+        {
+          "title": "한영자전",
+          "institution": "한국학중앙연구원 (한국민족문화대백과사전)",
+          "url": "https://encykorea.aks.ac.kr/Article/E0061840",
+          "source_type": "공공기관자료"
+        },
+        {
+          "title": "Korean sketches (1898) 원문 디지털 사본",
+          "institution": "Internet Archive (토론토대학 도서관 소장본)",
+          "url": "https://archive.org/details/koreansketches00galeuoft",
+          "source_type": "학술자료"
+        },
+        {
+          "title": "[책과 영성] 조선, 그 마지막 10년의 기록",
+          "institution": "국민일보",
+          "url": "https://www.kmib.co.kr/article/view.asp?arcid=0924034240&code=23111312",
+          "source_type": "기타"
+        }
+      ]
+    },
+    {
+      "title": "내셔널 지오그래픽: 조선 – 고요한 아침의 나라",
+      "artist": "National Geographic Society 발행. 기사 필자 Mabel Craft Deering [검수 필요: 공식 자료로 확인되지 않음]",
+      "chapter": "에필로그: The K-존",
+      "basic_description": "세계의 지리·자연·문화를 다루는 미국 월간지 『내셔널 지오그래픽』 1933년 10월호로, 일제강점기 조선(Chosen)을 소개하는 기사와 사진이 실려 있다. 기사 제목의 '고요한 아침의 나라(Land of Morning Calm)'는 당시 서양이 조선을 부르던 대표적인 별칭이다. 이 표현은 전시 소개글에서도 핵심 단어로 쓰였다.",
+      "work_info": {
+        "year": "1933년 10월호 (국립민속박물관 소장품 091253 기준. 실제 전시본과 같은지는 [검수 필요])",
+        "material": "인쇄 잡지",
+        "size": "세로 25.4, 가로 17.6, 두께 1 (단위 미기재, cm 추정 [검수 필요])",
+        "technique": "인쇄 월간지. 표지 2장, 내지 74장",
+        "other": "정가 50센트. 앞표지에 목차·가격, 뒤표지에 석유 광고. 조선 외에 이란, 아르헨티나 기사 수록. 기사명 'Chosen – Land of Morning Calm', 28쪽, 일부 컬러 사진 [판매 사이트 기준, 검수 필요]."
+      },
+      "historical_cultural_context": "1933년은 일제강점기다. 'Chosen'은 당시 영어권에서 조선을 가리킨 표기다 [출처 보완 필요]. 전시 소개글은 19~20세기 초 세계가 '고요한 아침의 나라'라는 표현으로 한국을 호기심 있게 바라보았다고 설명한다. 국립민속박물관은 같은 표현을 제목으로 한 1888년 보스턴 Ticknor and Company 발행 책 'CHOSON THE LAND OF THE MORNING CALM'(102568)도 소장하고 있다. 이 표현의 기원과 최초 사용자는 공식 자료로 확인하지 못했다.",
+      "exhibition_meaning": "에필로그는 '타자의 시선과 말'로 우리 일상을 볼 때 새로운 우리를 만나게 된다는 주제를 다루며, 19~20세기 세계인이 남긴 신문·잡지·사진 자료로 구성된다. 전시 소개글은 '고요한 아침의 나라'로 불리던 백 년 전 한국의 낯선 일상이 오늘날 케이컬처의 중심이 되었다는 흐름을 제시한다. 이 잡지를 그 '백 년 전 세계의 시선'의 실물로 보는 것은 조사자의 해석이며, 개별 공식 해설은 찾지 못했다.",
+      "additional_information": "국립민속박물관은 한국 기사가 실린 내셔널 지오그래픽을 여러 호 소장하고 있다. 1910년 'Glimpses of Korea and China', 1919년 'Exploring Unknown Corners of the Hermit Kingdom', 1924년 'In the Diamond Mountains of Korea', 1950년 6월호(6·25전쟁 이전 한국), 1969년 'SOUTH KOREA SUCCESS STORY IN ASIA', 1974년 'RARE LOOK AT NORTH KOREA', 1979년 'SEOUL: KOREAN SHOWCASE', 1988년 'THE SOUTH KOREANS'와 'KYONGJU, WHERE KOREA BEGAN' 등이다. 이 제목들로 세계가 한국을 보는 시선의 변화를 설명할 수 있다.",
+      "expected_questions": [
+        {
+          "question": "이 잡지는 언제 나온 건가요?",
+          "answer_basis": "1933년 10월호 (국립민속박물관 소장품 DB)"
+        },
+        {
+          "question": "'고요한 아침의 나라'는 무슨 뜻인가요? 누가 처음 썼나요?",
+          "answer_basis": "전시 소개글의 설명 (국립민속박물관). 표현의 기원은 확인되지 않음 [검수 필요]"
+        },
+        {
+          "question": "그때 한국은 어떤 상황이었나요?",
+          "answer_basis": "일제강점기 (일반 역사)"
+        },
+        {
+          "question": "기사에는 어떤 내용이 있나요?",
+          "answer_basis": "박물관 DB에는 '조선 관련 기사·사진·광고' 수준으로만 기재됨. 기사 본문은 확인되지 않음 [검수 필요]"
+        },
+        {
+          "question": "세계가 한국을 보는 시선은 어떻게 바뀌었나요?",
+          "answer_basis": "소장 내셔널 지오그래픽 기사 제목의 변천 (국립민속박물관 소장품 DB)"
+        }
+      ],
+      "sources": [
+        {
+          "title": "소장품 NATIONAL GEOGRAPHIC MAGAZINE 1933년 10월호 (091253)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100109125300000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 NATIONAL GEOGRAPHIC MAGAZINE 1919년 7월호 (065747)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100106574700000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 NATIONAL GEOGRAPHIC MAGAZINE 1969년 3월호 (065743)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100106574300000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 CHOSON THE LAND OF THE MORNING CALM (102568)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100110256800000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "상설전시 1전시 《한국인의 오늘》 소개",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/home/subIndex/11.do",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "[전시라이브러리] 상설전시 '한국인의 오늘' 재개관 (영상 자막)",
+          "institution": "국립민속박물관",
+          "url": "https://nfm.go.kr/home/1428/userVideoChannelDetail.do?no=1016",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "Chosen - Land of Morning Calm (1933) 판매 정보",
+          "institution": "AbeBooks",
+          "url": "https://www.abebooks.com/magazines-periodicals/Chosen-Land-Morning-Calm-Korea-original/31920335959/bd",
+          "source_type": "기타"
+        },
+        {
+          "title": "\"Chosen Land of the Morning Calm\" 아카이브 목록",
+          "institution": "Center for Adventist Research, Andrews University",
+          "url": "https://car.libraryhost.com/repositories/3/archival_objects/6716",
+          "source_type": "기타"
+        }
+      ]
+    },
+    {
+      "title": "울드로이드 (→ OLD KOREA로 추정 [검수 필요])",
+      "artist": "엘리자베스 키스 (Elizabeth Keith, 1887/8~1956) 그림, 엘스펫 키스 로버트슨 스콧 (Elspet Keith Robertson Scott) 글",
+      "chapter": "에필로그: The K-존",
+      "basic_description": "[검수 필요: '울드로이드'라는 작품은 국립민속박물관 DB에서 검색되지 않으며, 가장 가까운 소장품인 OLD KOREA로 추정함] 영국 화가 엘리자베스 키스가 그린 한국 그림과 언니 엘스펫 키스 로버트슨 스콧의 글을 엮어 1946년에 펴낸 책이다. 훈장, 신부, 무당 같은 인물과 연날리기, 주막, 전통가옥 등 20세기 초 한국인의 생활 모습을 판화와 수채화로 담았다.",
+      "work_info": {
+        "year": "1946년 (Hutchinson 발행본 065770·070819 기준). Philosophical Library 발행본(040796)은 연도 미기재",
+        "material": "인쇄본(책), 판화·수채화 도판 수록",
+        "size": "세로 28.5, 가로 22 (단위 미기재, cm 추정 [검수 필요])",
+        "technique": "Hutchinson 판: 표지 2장, 내지 66장. Philosophical Library 판: 표지 2장, 본문 38장, 작가 약력과 작품 설명 수록",
+        "other": "국립민속박물관 소장품 번호 065770, 070819, 040796. 전시본이 어느 판본인지는 확인되지 않음 [검수 필요]."
+      },
+      "historical_cultural_context": "엘리자베스 키스는 스코틀랜드 애버딘셔에서 태어나 런던에서 자랐다. 1919년 3월 한국을 처음 방문했고 1921년 다시 찾았다. 한국의 풍경과 인물을 수채화로 그린 뒤 목판화로 옮겼고, 1921년 도쿄에서 첫 판화 전시회를 열었으며, 일본 신판화 운동과 연결된 작가다. 1934년경부터 한국 이름 '기덕(奇德)'을 썼다(국립민속박물관 웹진). 처음 방문한 1919년은 3·1운동이 일어난 해이고, 이 책이 나온 1946년은 광복 직후다. 이 책에 일본의 식민 정책을 비판하는 글이 실렸다는 설명이 있으나 공식 자료로 확인하지 못했다 [검수 필요].",
+      "exhibition_meaning": "에필로그의 '세계인의 기행문, 삽화' 자료에 해당하며, 외국인의 눈에 비친 한국인의 평범한 일상을 보여주는 기록이다. 이 책만을 다룬 공식 전시 해설은 찾지 못했다.",
+      "additional_information": "국립민속박물관 웹진에 따르면 박물관은 키스의 한국 소재 판화 26점과 저서 2권을 소장하고 있다. 소장 판화로는 「달빛 아래 서울의 동대문」(1920), 「정월 초하루 나들이」, 「금강산 절 부엌」, 「신부 행차」, 「연날리기」, 「장기두기」, 「시골 선비」 등이 있다. 같은 전시 '자연스러운' 챕터의 흰옷(백의민족), 쓰개류 같은 주제가 키스 그림의 소재와 겹친다(실제 연결 전시 여부는 확인되지 않음).",
+      "expected_questions": [
+        {
+          "question": "엘리자베스 키스는 누구인가요?",
+          "answer_basis": "생애와 방문 연도 (국립민속박물관 웹진)"
+        },
+        {
+          "question": "외국 화가가 왜 한국을 그렸나요?",
+          "answer_basis": "1919년 방문과 이후 작업 (국립민속박물관 웹진). 개인적 동기는 공식 자료에서 확인되지 않음 [검수 필요]"
+        },
+        {
+          "question": "이 그림들은 어떻게 만들었나요?",
+          "answer_basis": "수채화를 목판화로 옮김 (국립민속박물관 웹진)"
+        },
+        {
+          "question": "책에는 어떤 그림이 있나요?",
+          "answer_basis": "훈장·신부·무당·연놀이·주막·전통가옥 (국립민속박물관 소장품 DB)"
+        },
+        {
+          "question": "판화 원본도 박물관에 있나요?",
+          "answer_basis": "한국 소재 판화 26점 소장 (국립민속박물관 웹진)"
+        }
+      ],
+      "sources": [
+        {
+          "title": "소장품 OLD KOREA (065770, 1946 Hutchinson)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100106577000000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 OLD KOREA (070819, 1946 Hutchinson)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100107081900000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 OLD KOREA (040796, Philosophical Library)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100104079600000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "기덕(奇德, 엘리자베스 키스)이 그린 Old Korea (민속소식 284호)",
+          "institution": "국립민속박물관 웹진",
+          "url": "https://webzine.nfm.go.kr/2023/01/31/%EA%B8%B0%EB%8D%95%E5%A5%87%E5%BE%B7-%EC%97%98%EB%A6%AC%EC%9E%90%EB%B2%A0%EC%8A%A4-%ED%82%A4%EC%8A%A4%EC%9D%B4-%EA%B7%B8%EB%A6%B0-old-korea/",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "[전시라이브러리] 상설전시 '한국인의 오늘' 재개관 (영상 자막)",
+          "institution": "국립민속박물관",
+          "url": "https://nfm.go.kr/home/1428/userVideoChannelDetail.do?no=1016",
+          "source_type": "공식자료"
+        }
+      ]
+    },
+    {
+      "title": "동양의 창 (Eastern Windows)",
+      "artist": "엘리자베스 키스 (Elizabeth Keith, 1887/8~1956)",
+      "chapter": "에필로그: The K-존",
+      "basic_description": "엘리자베스 키스가 1919년 무렵 한국, 일본, 중국 등 동아시아를 여행하며 언니에게 보낸 편지와 그림을 엮어 1928년 미국에서 펴낸 여행기다. 그림과 글이 함께 실려 있어 화가가 직접 보고 느낀 당시 동아시아의 풍경과 생활을 알 수 있다.",
+      "work_info": {
+        "year": "1928년, 미국 발행 초판본 (국립민속박물관 소장품 101245)",
+        "material": "인쇄본(책)",
+        "size": "세로 29, 가로 23, 두께 3.2 (101245, 단위 미기재, cm 추정 [검수 필요])",
+        "technique": "101245: 표지 2장, 내지 66장 (한국 16장, 중국 33장, 일본 17장). 040795: 표지 2장, 본문 65장 (일본, 홋카이도, 한국, 중국, 필리핀). 두 소장본의 구성 설명이 서로 다름 [검수 필요]",
+        "other": "출판사 HOUGHTON MIFFLIN COMPANY (040795). 표지에 서명과 작가명 인쇄. 전시본이 어느 소장본인지는 확인되지 않음 [검수 필요]."
+      },
+      "historical_cultural_context": "키스의 생애와 작업 방식은 'Old Korea' 항목과 같다(국립민속박물관 웹진). 웹진에 따르면 키스의 동양 생활과 경험은 두 권의 책에 기록되었다. 하나는 1928년 언니 엘스펫에게 보낸 편지를 엮은 이 여행기이고, 다른 하나는 1946년의 Old Korea다. 키스가 처음 한국을 찾은 1919년 3월은 3·1운동 시기다. 책에 관련 서술이 있는지는 원문 확인이 필요하다 [검수 필요].",
+      "exhibition_meaning": "에필로그의 '세계인이 남긴 기행문과 삽화'에 해당하며, 외국인 화가의 시선으로 본 한국인의 일상 기록이다. 같은 작가의 Old Korea와 함께 보면 1920년대 여행기에서 1946년 한국 중심 화집으로 이어지는 기록을 따라갈 수 있다(조사자의 해석이며 공식 해설은 확인되지 않음).",
+      "additional_information": "키스의 다른 화집 'ELIZABETH KEITH'(1933, The Studio 발행, 'Masters of Colour Print' 시리즈)도 소장되어 있으며, 「동대문의 일출」, 「한국인 어머니(Korean Mother)」, 「궁중 악사(Court Musicians)」 등 한국 소재 판화 3점이 실려 있다. 국립민속박물관 소장품 검색에서 '동양의 창'으로 검색하면 이 책(101245)이 나온다. 웹진에는 'Eastern Window'(단수)로 적혀 있으나 소장품 DB와 원서 제목은 'Eastern Windows'다.",
+      "expected_questions": [
+        {
+          "question": "'동양의 창'은 어떤 책인가요?",
+          "answer_basis": "1928년 여행기, 편지와 그림 (국립민속박물관 소장품 DB, 웹진)"
+        },
+        {
+          "question": "한국 이야기는 얼마나 실려 있나요?",
+          "answer_basis": "한국 16장 (국립민속박물관 소장품 DB 101245)"
+        },
+        {
+          "question": "키스는 누구에게 편지를 썼나요?",
+          "answer_basis": "언니 엘스펫 (국립민속박물관 웹진)"
+        },
+        {
+          "question": "같은 작가의 다른 책과 무엇이 다른가요?",
+          "answer_basis": "Eastern Windows(1928, 여러 나라) vs Old Korea(1946, 한국 중심) (국립민속박물관 소장품 DB)"
+        },
+        {
+          "question": "1919년 한국은 어떤 상황이었나요?",
+          "answer_basis": "3·1운동 (일반 역사)"
+        }
+      ],
+      "sources": [
+        {
+          "title": "소장품 Eastern Windows (101245, 1928 초판)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100110124500000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 EASTERN WINDOWS (040795)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100104079500000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "소장품 ELIZABETH KEITH 화집 (065767)",
+          "institution": "국립민속박물관",
+          "url": "https://www.nfm.go.kr/user/data/home/101/DataRelicView.do?seq=PS0100200100106576700000",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "기덕(奇德, 엘리자베스 키스)이 그린 Old Korea (민속소식 284호)",
+          "institution": "국립민속박물관 웹진",
+          "url": "https://webzine.nfm.go.kr/2023/01/31/%EA%B8%B0%EB%8D%95%E5%A5%87%E5%BE%B7-%EC%97%98%EB%A6%AC%EC%9E%90%EB%B2%A0%EC%8A%A4-%ED%82%A4%EC%8A%A4%EC%9D%B4-%EA%B7%B8%EB%A6%B0-old-korea/",
+          "source_type": "공식자료"
+        },
+        {
+          "title": "Elizabeth Keith 작가 소개 (대조용)",
+          "institution": "Ronin Gallery",
+          "url": "https://www.roningallery.com/artists/elizabeth-keith",
+          "source_type": "기타"
+        }
+      ]
+    }
+  ]
+}
