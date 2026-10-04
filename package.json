@@ -5,9 +5,14 @@
   "description": "국립민속박물관 상설전시관 AI 도슨트 웹 서비스 (큐레이터즈)",
   "type": "module",
   "scripts": {
-    "dev": "node dev-server.js"
+    "dev": "node dev-server.js",
+    "build:data": "node scripts/build-exhibits.js",
+    "try:ai": "node scripts/try-questions.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.10"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0"
   }
 }
