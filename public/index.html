@@ -9,7 +9,7 @@
 <body>
   <header class="site-header">
     <h1>AI 도슨트</h1>
-    <p class="subtitle">국립민속박물관 상설전시관</p>
+    <p class="subtitle">국립민속박물관 상설전시관 3 《한국인의 일생》</p>
     <div class="font-controls" aria-label="글자 크기">
       <button type="button" data-font="down" aria-label="글자 작게">가-</button>
       <button type="button" data-font="up" aria-label="글자 크게">가+</button>
@@ -28,9 +28,15 @@
     </section>
 
     <section class="card">
+      <h2>전시물 목록</h2>
+      <p>보고 싶은 전시물을 누르세요.</p>
+      <div id="exhibit-list" class="exhibit-list">전시물 목록을 불러오는 중…</div>
+    </section>
+
+    <section class="card">
       <h2>이용 방법</h2>
       <ol class="steps">
-        <li>전시물 번호를 입력합니다.</li>
+        <li>전시물 번호를 입력하거나, 목록에서 전시물을 고릅니다.</li>
         <li>쉬운 설명 또는 자세한 설명을 고릅니다.</li>
         <li>‘소리로 듣기’ 버튼을 누르면 설명을 읽어 줍니다.</li>
       </ol>
@@ -38,12 +44,6 @@
   </main>
 
   <script src="/js/common.js"></script>
-  <script>
-    document.getElementById("exhibit-form").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const id = document.getElementById("exhibit-id").value.trim();
-      if (id) location.href = `/exhibit.html?id=${encodeURIComponent(id)}`;
-    });
-  </script>
+  <script src="/js/index.js"></script>
 </body>
 </html>
