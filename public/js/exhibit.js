@@ -1,7 +1,9 @@
-// 전시물 상세 페이지: 주소의 ?id= 값으로 전시물을 찾아 설명을 보여 준다.
+// 전시물 상세 페이지: 주소의 ?id= 값(작품 고유 ID, 예: gammoyeojaedo)으로 전시물을 찾아 설명을 보여 준다.
+// 예전 임시 번호 주소(?id=901)로 들어와도 같은 작품을 보여 주고, 주소를 고유 ID로 바꿔 둔다.
 
 const params = new URLSearchParams(location.search);
-const exhibitId = params.get("id");
+const requestedId = (params.get("id") || "").trim();
+let exhibitId = null; // 찾은 작품의 고유 ID. 질문할 때 서버로 보낸다.
 
 const titleEl = document.getElementById("exhibit-title");
 const metaEl = document.getElementById("exhibit-meta");
@@ -27,8 +29,9 @@ function showAnswer(text, isError = false) {
 }
 
 async function loadExhibit() {
-  if (!exhibitId) {
-    titleEl.textContent = "전시물 번호가 없습니다.";
+  if (!requestedId) {
+    titleEl.textContent = "어떤 작품인지 알 수 없습니다.";
+    descriptionEl.textContent = "첫 화면에서 작품 이름으로 찾아 주세요.";
     return;
   }
 
@@ -36,7 +39,8 @@ async function loadExhibit() {
     const response = await fetch("/data/exhibits.json");
     if (!response.ok) throw new Error(`exhibits.json ${response.status}`);
     const exhibits = await response.json();
-    exhibit = exhibits.find((item) => String(item.id) === exhibitId);
+    exhibit =
+      exhibits.find((item) => item.id === requestedId) || exhibits.find((item) => item.number === requestedId);
   } catch (error) {
     console.error("전시물 정보를 불러오지 못했습니다:", error);
     titleEl.textContent = "전시물 정보를 불러오지 못했습니다.";
@@ -45,11 +49,16 @@ async function loadExhibit() {
   }
 
   if (!exhibit) {
-    titleEl.textContent = `${exhibitId}번 전시물`;
-    descriptionEl.textContent = "아직 설명이 준비되지 않은 전시물입니다.";
+    titleEl.textContent = "작품을 찾을 수 없습니다.";
+    descriptionEl.textContent = "첫 화면에서 작품 이름으로 다시 찾아 주세요.";
     return;
   }
 
+  exhibitId = exhibit.id;
+  if (requestedId !== exhibitId) {
+    history.replaceState(null, "", `/exhibit.html?id=${encodeURIComponent(exhibitId)}`); // 예전 번호 주소 → 고유 ID 주소
+  }
+  document.title = `${exhibit.title} | AI 도슨트`;
   titleEl.textContent = exhibit.title;
   metaEl.textContent = [exhibit.chapter, exhibit.hall].filter(Boolean).join(" · ");
   renderDescription();
@@ -85,6 +94,45 @@ document.getElementById("speak-btn").addEventListener("click", () => {
   speak(`${titleEl.textContent}. ${descriptionEl.textContent}`);
 });
 
+// ── 답변 저장(브라우저 안) ──
+// 같은 전시물·같은 설명 수준·같은 질문은 서버와 AI에 다시 보내지 않고 저장해 둔 답을 보여 준다.
+// 저장은 이 브라우저 탭 안(sessionStorage)에만 하며, 탭을 닫으면 지워진다. 서버로 보내지 않는다.
+const ANSWER_CACHE_KEY = "docentAnswers";
+const ANSWER_CACHE_MAX = 50;
+
+// 띄어쓰기와 끝의 물음표·마침표 차이는 같은 질문으로 본다.
+function normalizeQuestion(text) {
+  return text.trim().replace(/\s+/g, " ").replace(/[?？.!。]+$/, "");
+}
+
+function cacheKey(question) {
+  return `${exhibitId}|${level}|${normalizeQuestion(question)}`;
+}
+
+function readCache() {
+  try {
+    return JSON.parse(sessionStorage.getItem(ANSWER_CACHE_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function getCachedAnswer(question) {
+  return readCache()[cacheKey(question)];
+}
+
+function saveCachedAnswer(question, answer) {
+  try {
+    const cache = readCache();
+    cache[cacheKey(question)] = answer;
+    const keys = Object.keys(cache);
+    for (const old of keys.slice(0, Math.max(0, keys.length - ANSWER_CACHE_MAX))) delete cache[old];
+    sessionStorage.setItem(ANSWER_CACHE_KEY, JSON.stringify(cache));
+  } catch {
+    // 저장할 수 없는 환경(사생활 보호 모드 등)이어도 질문·답변은 정상 동작한다.
+  }
+}
+
 // 서버 응답 상태에 따라 관람객에게 보여줄 문장을 고른다.
 function errorMessage(status, data) {
   if (data?.error && status >= 400 && status < 500) return data.error; // 서버가 알려 준 이유 (빈 질문, 너무 긴 질문 등)
@@ -106,6 +154,12 @@ document.getElementById("ask-form").addEventListener("submit", async (event) => 
     return;
   }
 
+  const cached = getCachedAnswer(question);
+  if (cached) {
+    showAnswer(cached); // 이미 받은 답변 → 서버에 보내지 않음
+    return;
+  }
+
   asking = true;
   setAskEnabled(false);
   askBtn.textContent = "답변 준비 중…";
@@ -121,6 +175,7 @@ document.getElementById("ask-form").addEventListener("submit", async (event) => 
 
     if (response.ok && data?.answer) {
       showAnswer(data.answer);
+      if (!data.placeholder) saveCachedAnswer(question, data.answer); // "준비 중" 임시 답변은 저장하지 않음
     } else {
       console.error("질문 요청 실패:", response.status, data);
       showAnswer(errorMessage(response.status, data), true);

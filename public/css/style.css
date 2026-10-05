@@ -169,6 +169,34 @@ body {
   color: var(--color-primary-text);
 }
 
+.search-input {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0 0.75rem;
+  font-size: 1.1rem;
+  border: 2px solid var(--color-border);
+  border-radius: 10px;
+}
+
+.search-results {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.search-results a {
+  display: block;
+  padding: 0.6rem 0.25rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-primary);
+  font-size: 1.05rem;
+}
+
+.search-results .meta {
+  display: block;
+  font-size: 0.9rem;
+}
+
 .exhibit-list details {
   border-top: 1px solid var(--color-border);
 }

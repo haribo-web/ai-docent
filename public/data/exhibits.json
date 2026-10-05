@@ -1,6 +1,7 @@
 [
   {
-    "id": "101",
+    "id": "baekdongjado-8pok-byeongpung",
+    "number": "101",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 1,
     "title": "백동자도 8폭 병풍",
@@ -22,7 +23,8 @@
     "sourceRow": 2
   },
   {
-    "id": "102",
+    "id": "sohakeonhae",
+    "number": "102",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 1,
     "title": "소학언해",
@@ -41,7 +43,8 @@
     "sourceRow": 3
   },
   {
-    "id": "201",
+    "id": "ilseonyeongyean",
+    "number": "201",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 2,
     "title": "일선연계안",
@@ -64,7 +67,8 @@
     "sourceRow": 4
   },
   {
-    "id": "202",
+    "id": "munjado-8pok-byeongpung",
+    "number": "202",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 2,
     "title": "문자도 8폭 병풍",
@@ -86,7 +90,8 @@
     "sourceRow": 5
   },
   {
-    "id": "301",
+    "id": "heukrip",
+    "number": "301",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 3,
     "title": "흑립",
@@ -109,7 +114,8 @@
     "sourceRow": 6
   },
   {
-    "id": "302",
+    "id": "gyeongdae",
+    "number": "302",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 3,
     "title": "경대",
@@ -131,7 +137,8 @@
     "sourceRow": 7
   },
   {
-    "id": "401",
+    "id": "hongpae",
+    "number": "401",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 4,
     "title": "홍패(紅牌)",
@@ -150,7 +157,8 @@
     "sourceRow": 8
   },
   {
-    "id": "402",
+    "id": "baekpae",
+    "number": "402",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 4,
     "title": "백패(白牌)",
@@ -169,7 +177,8 @@
     "sourceRow": 9
   },
   {
-    "id": "403",
+    "id": "gyoji",
+    "number": "403",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 4,
     "title": "교지(敎旨)",
@@ -188,7 +197,8 @@
     "sourceRow": 10
   },
   {
-    "id": "404",
+    "id": "danryeonggwa-hyungbae",
+    "number": "404",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 4,
     "title": "단령(團領)과 흉배(胸背)",
@@ -207,7 +217,8 @@
     "sourceRow": 11
   },
   {
-    "id": "405",
+    "id": "samowa-gakdae",
+    "number": "405",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 4,
     "title": "사모(紗帽)와 각대(角帶)",
@@ -226,7 +237,8 @@
     "sourceRow": 12
   },
   {
-    "id": "406",
+    "id": "hopae",
+    "number": "406",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 4,
     "title": "호패(號牌)",
@@ -245,7 +257,8 @@
     "sourceRow": 13
   },
   {
-    "id": "407",
+    "id": "gaok-maemae-munseowa-jipjureup",
+    "number": "407",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 4,
     "title": "가옥 매매 문서(명문)와 집주릅",
@@ -266,7 +279,8 @@
     "sourceRow": 14
   },
   {
-    "id": "408",
+    "id": "bunhap-buncheop-deung-hwajang-yonggu",
+    "number": "408",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 4,
     "title": "분합·분첩 등 화장 용구(매분구 관련)",
@@ -287,7 +301,8 @@
     "sourceRow": 15
   },
   {
-    "id": "501",
+    "id": "sajudanja",
+    "number": "501",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "사주단자(四柱單子)",
@@ -306,7 +321,8 @@
     "sourceRow": 16
   },
   {
-    "id": "502",
+    "id": "honseo",
+    "number": "502",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "혼서(婚書)",
@@ -325,7 +341,8 @@
     "sourceRow": 17
   },
   {
-    "id": "503",
+    "id": "ham",
+    "number": "503",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "함(函)",
@@ -344,7 +361,8 @@
     "sourceRow": 18
   },
   {
-    "id": "504",
+    "id": "mokan",
+    "number": "504",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "목안(木雁, 나무 기러기)",
@@ -363,7 +381,8 @@
     "sourceRow": 19
   },
   {
-    "id": "505",
+    "id": "sinrang-honryebok",
+    "number": "505",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "신랑 혼례복(사모관대)",
@@ -382,7 +401,8 @@
     "sourceRow": 20
   },
   {
-    "id": "506",
+    "id": "hwalot",
+    "number": "506",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "활옷(闊衣)",
@@ -404,7 +424,8 @@
     "sourceRow": 21
   },
   {
-    "id": "507",
+    "id": "wonsamgwa-jokduri-hwagwan",
+    "number": "507",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "원삼(圓衫)과 족두리·화관",
@@ -423,7 +444,8 @@
     "sourceRow": 22
   },
   {
-    "id": "508",
+    "id": "choryesang-jaehyeon",
+    "number": "508",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "초례상(교배상) 재현",
@@ -445,7 +467,8 @@
     "sourceRow": 23
   },
   {
-    "id": "509",
+    "id": "pyebaek-sangcharim",
+    "number": "509",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "폐백 상차림",
@@ -467,7 +490,8 @@
     "sourceRow": 24
   },
   {
-    "id": "510",
+    "id": "saeksilcheop",
+    "number": "510",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "색실첩",
@@ -489,7 +513,8 @@
     "sourceRow": 25
   },
   {
-    "id": "511",
+    "id": "jaebongteul",
+    "number": "511",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "재봉틀(1970년대 혼수품)",
@@ -511,7 +536,8 @@
     "sourceRow": 26
   },
   {
-    "id": "512",
+    "id": "wedingdeureseu",
+    "number": "512",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 5,
     "title": "웨딩드레스(1998년)",
@@ -533,7 +559,8 @@
     "sourceRow": 27
   },
   {
-    "id": "601",
+    "id": "hoegapyeon-keunsang-jaehyeon",
+    "number": "601",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 6,
     "title": "회갑연 큰상(고임상) 재현",
@@ -554,7 +581,8 @@
     "sourceRow": 28
   },
   {
-    "id": "602",
+    "id": "suyeonsichuk-suyeoncheop",
+    "number": "602",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 6,
     "title": "수연시축(壽宴詩軸)·수연첩",
@@ -573,7 +601,8 @@
     "sourceRow": 29
   },
   {
-    "id": "603",
+    "id": "hoehonryedo-hoehonryecheop",
+    "number": "603",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 6,
     "title": "회혼례도·회혼례첩",
@@ -592,7 +621,8 @@
     "sourceRow": 30
   },
   {
-    "id": "604",
+    "id": "baeksubaekbokdo-byeongpung",
+    "number": "604",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 6,
     "title": "백수백복도(百壽百福圖) 병풍",
@@ -611,7 +641,8 @@
     "sourceRow": 31
   },
   {
-    "id": "605",
+    "id": "gwejang",
+    "number": "605",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 6,
     "title": "궤장(几杖)",
@@ -630,7 +661,8 @@
     "sourceRow": 32
   },
   {
-    "id": "701",
+    "id": "hwanghaedo-gutcheong-jaehyeongwa-bujeok",
+    "number": "701",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 7,
     "title": "황해도 굿청 재현과 부적",
@@ -657,7 +689,8 @@
     "sourceRow": 33
   },
   {
-    "id": "702",
+    "id": "chimtong",
+    "number": "702",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 7,
     "title": "침통",
@@ -681,7 +714,8 @@
     "sourceRow": 34
   },
   {
-    "id": "801",
+    "id": "sancheong-jeonjuchoessi-goryeongdaek-sangyeo",
+    "number": "801",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 8,
     "title": "산청 전주최씨 고령댁 상여",
@@ -707,7 +741,8 @@
     "sourceRow": 35
   },
   {
-    "id": "802",
+    "id": "bokchawa-gajeonguiryejunchik-sangrye-gwaedo",
+    "number": "802",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 8,
     "title": "복차(服次)와 '가정의례준칙 상례' 괘도",
@@ -735,7 +770,8 @@
     "sourceRow": 36
   },
   {
-    "id": "901",
+    "id": "gammoyeojaedo",
+    "number": "901",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 9,
     "title": "감모여재도(感慕如在圖)",
@@ -761,7 +797,8 @@
     "sourceRow": 37
   },
   {
-    "id": "902",
+    "id": "andong-gwonssi-chungjae-gwonbeol-jongga-bulcheonwi-jesasang",
+    "number": "902",
     "hall": "상설전시관 3 《한국인의 일생》",
     "chapterNo": 9,
     "title": "안동 권씨 충재 권벌 종가 불천위 제사상 (재현)",

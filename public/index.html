@@ -18,28 +18,29 @@
 
   <main class="container">
     <section class="card">
-      <h2>전시물 번호로 찾기</h2>
-      <p>전시물 옆에 적힌 번호를 입력하세요.</p>
-      <form id="exhibit-form" class="exhibit-form">
-        <label for="exhibit-id" class="visually-hidden">전시물 번호</label>
-        <input id="exhibit-id" name="id" type="text" inputmode="numeric" placeholder="예: 101" required>
-        <button type="submit" class="btn-primary">설명 듣기</button>
-      </form>
+      <h2>작품 이름으로 찾기</h2>
+      <p>작품 옆 설명판에 적힌 이름을 입력하세요. 이름의 일부만 써도 됩니다.</p>
+      <label for="exhibit-search" class="visually-hidden">작품 이름</label>
+      <input id="exhibit-search" class="search-input" type="search" placeholder="예: 상여, 감모여재도" autocomplete="off">
+      <p id="search-status" class="hint" aria-live="polite"></p>
+      <ul id="search-results" class="search-results"></ul>
     </section>
 
     <section class="card">
-      <h2>전시물 목록</h2>
-      <p>보고 싶은 전시물을 누르세요.</p>
+      <h2>전시 구역에서 찾기</h2>
+      <p>전시장 벽에 적힌 구역 이름(예: 7부 치유)을 누르면 그 구역의 작품이 나옵니다.</p>
       <div id="exhibit-list" class="exhibit-list">전시물 목록을 불러오는 중…</div>
     </section>
 
     <section class="card">
       <h2>이용 방법</h2>
       <ol class="steps">
-        <li>전시물 번호를 입력하거나, 목록에서 전시물을 고릅니다.</li>
+        <li>작품 이름이나 전시 구역으로 지금 보고 있는 작품을 찾습니다.</li>
         <li>쉬운 설명 또는 자세한 설명을 고릅니다.</li>
         <li>‘소리로 듣기’ 버튼을 누르면 설명을 읽어 줍니다.</li>
+        <li>궁금한 점은 AI 도슨트에게 물어봅니다.</li>
       </ol>
+      <p class="hint">이 서비스는 위치정보를 사용하지 않으며, 회원가입 없이 이용할 수 있습니다.</p>
     </section>
   </main>
 

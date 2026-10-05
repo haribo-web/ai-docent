@@ -6,7 +6,10 @@
 // 원칙
 // - 엑셀의 글은 줄이거나 지우지 않고 그대로 옮긴다.
 // - 출처 URL 목록(sourceUrls)과 출처 상태(sourceStatus)만 계산해서 덧붙인다.
-// - 번호(id)는 박물관 공식 번호가 아니라 우리 서비스용 번호다. (챕터 번호 + 순서, 예: 101)
+// - id: 작품마다 고유한 영문 ID (예: 감모여재도 → gammoyeojaedo). 주소와 AI 요청에 쓴다.
+//   처음 만들 때 작품명을 로마자로 바꿔 정하고, data/exhibit-ids.json 에 기록해 고정한다.
+//   그 뒤에는 엑셀 행 순서가 바뀌어도 같은 ID를 쓴다. ID를 바꾸고 싶으면 그 파일을 고친다.
+// - number: 예전에 쓰던 임시 번호 (챕터 번호 + 순서, 예: 901). 예전 주소(?id=901) 호환용으로만 남긴다.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -16,6 +19,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
 const INPUT = path.resolve(ROOT, process.argv[2] || "작품 정리_정리본.xlsx");
 const OUTPUT = path.join(ROOT, "public", "data", "exhibits.json");
+const ID_FILE = path.join(ROOT, "data", "exhibit-ids.json");
 const SHEET_NAME = "시트1";
 const HALL = "상설전시관 3 《한국인의 일생》";
 
@@ -111,6 +115,54 @@ function sourceInfo(text) {
   return { sourceUrls: [...new Set(urls)], sourceStatus: status };
 }
 
+// ── 작품 고유 ID (로마자) ──
+// 국어의 로마자 표기법의 글자 대응을 따른다. (소리가 바뀌는 규칙까지는 적용하지 않음)
+const INITIALS = ["g", "kk", "n", "d", "tt", "r", "m", "b", "pp", "s", "ss", "", "j", "jj", "ch", "k", "t", "p", "h"];
+const VOWELS = ["a", "ae", "ya", "yae", "eo", "e", "yeo", "ye", "o", "wa", "wae", "oe", "yo", "u", "wo", "we", "wi", "yu", "eu", "ui", "i"];
+const FINALS = ["", "k", "k", "k", "n", "n", "n", "t", "l", "k", "m", "l", "l", "l", "p", "l", "m", "p", "p", "t", "t", "ng", "t", "t", "k", "t", "p", "t"];
+
+function romanize(text) {
+  let out = "";
+  for (const ch of text) {
+    const code = ch.codePointAt(0) - 0xac00;
+    if (code >= 0 && code < 11172) {
+      out += INITIALS[Math.floor(code / 588)] + VOWELS[Math.floor((code % 588) / 28)] + FINALS[code % 28];
+    } else {
+      out += ch;
+    }
+  }
+  return out;
+}
+
+function makeId(title) {
+  return romanize(title.replace(/\([^)]*\)/g, "")) // 괄호 속 한자 등은 빼고
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-") // 띄어쓰기·문장부호 → 하이픈
+    .replace(/^-+|-+$/g, "");
+}
+
+// 이미 정해 둔 ID는 그대로 쓰고, 새 작품에만 새 ID를 만든다.
+function assignIds(titles) {
+  const saved = fs.existsSync(ID_FILE) ? JSON.parse(fs.readFileSync(ID_FILE, "utf8")) : {};
+  const used = new Set(Object.values(saved));
+  const ids = {};
+  for (const title of titles) {
+    if (saved[title]) {
+      ids[title] = saved[title];
+      continue;
+    }
+    const base = makeId(title) || "exhibit";
+    let id = base;
+    for (let n = 2; used.has(id); n++) id = `${base}-${n}`;
+    used.add(id);
+    ids[title] = id;
+    saved[title] = id;
+  }
+  fs.mkdirSync(path.dirname(ID_FILE), { recursive: true });
+  fs.writeFileSync(ID_FILE, JSON.stringify(saved, null, 2) + "\n", "utf8");
+  return ids;
+}
+
 // ── 실행 ──
 const rows = readSheet(unzip(fs.readFileSync(INPUT)), SHEET_NAME);
 const [header, ...body] = rows;
@@ -121,9 +173,14 @@ for (const [col, label] of Object.entries(header.cells)) {
 const missing = Object.values(COLUMNS).filter((f) => !colOf[f]);
 if (missing.length) throw new Error(`엑셀 제목 행에 없는 열: ${missing.join(", ")}`);
 
+const dataRows = body.filter(({ cells }) => (cells[colOf.title] || "").trim());
+const titles = dataRows.map(({ cells }) => cells[colOf.title].trim());
+const duplicated = titles.filter((t, i) => titles.indexOf(t) !== i);
+if (duplicated.length) throw new Error(`작품명이 겹칩니다. 작품명은 서로 달라야 합니다 → ${[...new Set(duplicated)].join(", ")}`);
+const idOf = assignIds(titles);
+
 const perChapter = {};
-const exhibits = body
-  .filter(({ cells }) => (cells[colOf.title] || "").trim())
+const exhibits = dataRows
   .map(({ rowNumber, cells }) => {
     const item = {};
     for (const [field, col] of Object.entries(colOf)) item[field] = (cells[col] || "").trim();
@@ -132,10 +189,11 @@ const exhibits = body
     if (!chapterNo) throw new Error(`${rowNumber}행: 챕터 이름이 'N부 이름' 형식이 아닙니다 → '${item.chapter}'`);
     perChapter[chapterNo] = (perChapter[chapterNo] || 0) + 1;
 
-    const id = `${chapterNo}${String(perChapter[chapterNo]).padStart(2, "0")}`;
+    const number = `${chapterNo}${String(perChapter[chapterNo]).padStart(2, "0")}`;
     const fullText = Object.values(item).join(" ");
     return {
-      id,
+      id: idOf[item.title],
+      number,
       hall: HALL,
       chapterNo,
       ...item,
