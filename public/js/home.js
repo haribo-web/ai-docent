@@ -1,40 +1,24 @@
 /* =========================================================
-   첫 화면 동작: 번호로 찾기, 전시관 지도, 전시관별 작품 목록
+   첫 화면 동작: 번호로 찾기, 전시 지도, 전시별 작품 목록
+   - 전시 구역은 데이터의 hall 값을 보고 자동으로 만듭니다.
+     (hall 이 1~9 처럼 숫자여도, "상설전시관 1관" 같은 글이어도 됩니다)
    ========================================================= */
 
-// 전시관 이름 (실제 전시와 다르면 여기만 수정)
-const HALLS = [
-  { no: 1, name: "1관", sub: "한국인의 하루" },
-  { no: 2, name: "2관", sub: "한국인의 일상" },
-  { no: 3, name: "3관", sub: "한국인의 일생" }
-];
-
-// 지도 위 전시관 칸 위치 (가로 0~400, 세로 0~320)
-const HALL_BOX = { top: 12, height: 266, gap: 8, left: 12, right: 388 };
+/* 전시 이름 붙이기 (선택)
+   hall 값이 숫자뿐이라 지도에 "1", "2"만 보이면 여기에 이름을 적어 주세요.
+   예: "1": "1. 한국인의 하루"
+   비워 두면 데이터의 hall 값이 그대로 보입니다.                       */
+const HALL_NAMES = {
+  // "1": "",
+  // "2": "",
+};
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 const go = (id) => { location.href = exhibitUrl(id); };
 
-/* ---------- 1. 지도: 전시관 칸 그리기 ---------- */
-const hallW = (HALL_BOX.right - HALL_BOX.left - HALL_BOX.gap * (HALLS.length - 1)) / HALLS.length;
-const hallRect = (i) => ({
-  x: HALL_BOX.left + i * (hallW + HALL_BOX.gap),
-  y: HALL_BOX.top, w: hallW, h: HALL_BOX.height
-});
+// 지도 크기 (가로 400 기준, 세로는 전시 수에 따라 자동)
+const MAP = { left: 12, width: 376, top: 12, gap: 8, cellH: 104, maxCols: 3, entryH: 44 };
 
-HALLS.forEach((h, i) => {
-  const r = hallRect(i);
-  const g = document.createElementNS(SVG_NS, "g");
-  g.innerHTML = `
-    <rect class="hall h${i % 3}" x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" rx="10"/>
-    <text class="hallname" x="${r.x + 12}" y="${r.y + 24}"></text>
-    <text class="hallsub"  x="${r.x + 12}" y="${r.y + 41}"></text>`;
-  g.querySelector(".hallname").textContent = h.name;
-  g.querySelector(".hallsub").textContent = h.sub;
-  $("halls").appendChild(g);
-});
-
-/* ---------- 2. 데이터 불러온 뒤 핀·목록 만들기 ---------- */
 (async () => {
   let exhibits = [];
   try {
@@ -43,26 +27,28 @@ HALLS.forEach((h, i) => {
     showMsg("작품 정보를 불러오지 못했어요. 잠시 뒤 새로고침해 주세요.", true);
     return;
   }
-  if (exhibits.length === 0) {
-    showMsg("아직 등록된 작품이 없어요.");
-  }
+  if (exhibits.length === 0) showMsg("아직 등록된 작품이 없어요.");
 
-  // 전시관별로 나누기
-  const byHall = new Map(HALLS.map((h) => [h.no, []]));
-  const etc = [];
+  // 1. hall 값으로 전시 묶기 → 숫자 순서로 정렬
+  const groups = new Map();
   exhibits.forEach((ex) => {
-    const n = hallNumber(ex.hall);
-    (byHall.has(n) ? byHall.get(n) : etc).push(ex);
+    const key = String(ex.hall || "").trim() || "기타";
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(ex);
+  });
+  const halls = [...groups.keys()].sort((a, b) => {
+    const na = firstNumber(a), nb = firstNumber(b);
+    if (na !== nb) return na - nb;
+    return a.localeCompare(b, "ko");
   });
 
-  // 지도 핀
-  HALLS.forEach((h, i) => drawPins(byHall.get(h.no), hallRect(i)));
+  // 2. 지도 그리기
+  drawMap(halls, groups);
 
-  // 목록
-  HALLS.forEach((h) => addGroup(`${h.name} ${h.sub}`, byHall.get(h.no)));
-  addGroup("기타", etc);
+  // 3. 전시별 목록
+  halls.forEach((key) => addGroup(hallLabel(key), groups.get(key)));
 
-  // 번호로 찾기
+  // 4. 번호로 찾기
   $("findForm").onsubmit = (e) => {
     e.preventDefault();
     const raw = $("findInput").value.trim();
@@ -73,26 +59,72 @@ HALLS.forEach((h, i) => {
   };
 })();
 
+/* ---------- 도움 함수 ---------- */
+function firstNumber(s) {
+  const m = String(s).match(/\d+/);
+  return m ? Number(m[0]) : 9999;     // 숫자가 없으면 맨 뒤로
+}
+
+function hallLabel(key) {
+  const n = firstNumber(key);
+  return HALL_NAMES[key] || HALL_NAMES[String(n)] || (/^\d+$/.test(key) ? `전시 ${key}` : key);
+}
+
 function showMsg(text, isError) {
   $("findMsg").textContent = text;
   $("findMsg").classList.toggle("err", !!isError);
 }
 
-/* 핀 그리기: 데이터에 x, y 가 있으면 그 위치, 없으면 전시관 칸 안에 자동 배치 */
+/* ---------- 지도 ---------- */
+function drawMap(halls, groups) {
+  const svg = $("mapSvg");
+  if (!halls.length) { svg.closest(".map").hidden = true; return; }
+
+  const cols = Math.min(MAP.maxCols, halls.length);
+  const rows = Math.ceil(halls.length / cols);
+  const cellW = (MAP.width - MAP.gap * (cols - 1)) / cols;
+  const bottom = MAP.top + rows * MAP.cellH + (rows - 1) * MAP.gap;
+  const height = bottom + MAP.entryH;
+
+  // 지도 전체 크기와 입구 위치 맞추기
+  svg.setAttribute("viewBox", `0 0 400 ${height}`);
+  svg.querySelector(".door").setAttribute("d", `M170 ${bottom} v24 M230 ${bottom} v24`);
+  svg.querySelector(".entry").setAttribute("y", bottom + 20);
+
+  halls.forEach((key, i) => {
+    const r = {
+      x: MAP.left + (i % cols) * (cellW + MAP.gap),
+      y: MAP.top + Math.floor(i / cols) * (MAP.cellH + MAP.gap),
+      w: cellW, h: MAP.cellH
+    };
+    // 전시 칸
+    const g = document.createElementNS(SVG_NS, "g");
+    g.innerHTML = `
+      <rect class="hall h${i % 3}" x="${r.x}" y="${r.y}" width="${r.w}" height="${r.h}" rx="10"/>
+      <text class="hallname" x="${r.x + 10}" y="${r.y + 20}"></text>`;
+    const label = hallLabel(key);
+    const maxChars = Math.floor(cellW / 13);
+    g.querySelector(".hallname").textContent = label.length > maxChars ? label.slice(0, maxChars - 1) + "…" : label;
+    $("halls").appendChild(g);
+
+    drawPins(groups.get(key), r);
+  });
+}
+
+/* 핀: 데이터에 x, y 가 있으면 그 위치, 없으면 전시 칸 안에 자동 배치 */
 function drawPins(list, r) {
-  if (!list.length) return;
-  const cols = 2;
+  const cols = 3;
   const rows = Math.ceil(list.length / cols);
-  const areaTop = r.y + 60, areaH = r.h - 72;
-  const stepY = Math.min(48, areaH / rows);
-  const radius = Math.max(9, Math.min(19, stepY / 2 - 3));
+  const areaTop = r.y + 30, areaH = r.h - 34;
+  const stepY = Math.min(36, areaH / rows);
+  const radius = Math.max(7, Math.min(15, stepY / 2 - 2));
 
   list.forEach((ex, k) => {
     const hasXY = typeof ex.x === "number" && typeof ex.y === "number";
     const x = hasXY ? ex.x : r.x + r.w * ((k % cols) + 0.5) / cols;
     const y = hasXY ? ex.y : areaTop + stepY * (Math.floor(k / cols) + 0.5);
     const label = ex.id.length > 3 ? ex.id.slice(-3) : ex.id;   // 긴 번호는 끝 3자리만
-    const font = Math.max(9, radius * (label.length > 2 ? 0.62 : 0.8));
+    const font = Math.max(7, radius * (label.length > 2 ? 0.66 : 0.85));
 
     const pin = document.createElementNS(SVG_NS, "g");
     pin.setAttribute("class", "pin");
@@ -114,9 +146,8 @@ function drawPins(list, r) {
   });
 }
 
-/* 목록 묶음 하나 추가 */
+/* ---------- 목록 ---------- */
 function addGroup(title, list) {
-  if (!list.length) return;
   const box = document.createElement("div");
   box.className = "group";
   const h = document.createElement("h3");
@@ -135,7 +166,7 @@ function exhibitItem(ex) {
   a.innerHTML = `<span class="num"></span><span><span class="t"></span><br><span class="s"></span></span>`;
   a.querySelector(".num").textContent = ex.id;
   a.querySelector(".t").textContent = ex.name;
-  a.querySelector(".s").textContent = [ex.era, ex.hall].filter(Boolean).join(" · ");
+  a.querySelector(".s").textContent = ex.era || "";
   li.appendChild(a);
   return li;
 }
