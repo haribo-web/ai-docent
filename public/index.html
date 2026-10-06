@@ -1,49 +1,51 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI 도슨트 | 국립민속박물관</title>
-  <link rel="stylesheet" href="/css/style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>큐레이터즈 AI 도슨트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <h1>AI 도슨트</h1>
-    <p class="subtitle">국립민속박물관 상설전시관</p>
-    <div class="font-controls" aria-label="글자 크기">
-      <button type="button" data-font="down" aria-label="글자 작게">가-</button>
-      <button type="button" data-font="up" aria-label="글자 크게">가+</button>
-    </div>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="index.html">큐레이터즈 AI 도슨트</a>
+    <button class="sizebtn" id="sizeBtn" type="button" aria-pressed="false">글자 크게</button>
   </header>
 
-  <main class="container">
-    <section class="card">
-      <h2>전시물 번호로 찾기</h2>
-      <p>전시물 옆에 적힌 번호를 입력하세요.</p>
-      <form id="exhibit-form" class="exhibit-form">
-        <label for="exhibit-id" class="visually-hidden">전시물 번호</label>
-        <input id="exhibit-id" name="id" type="text" inputmode="numeric" placeholder="예: 101" required>
-        <button type="submit" class="btn-primary">설명 듣기</button>
-      </form>
-    </section>
+  <main>
+    <h1>어떤 작품이 궁금하세요?</h1>
+    <p class="lead">작품 옆 번호를 입력하거나, 지도에서 번호를 눌러 주세요.</p>
 
-    <section class="card">
-      <h2>이용 방법</h2>
-      <ol class="steps">
-        <li>전시물 번호를 입력합니다.</li>
-        <li>쉬운 설명 또는 자세한 설명을 고릅니다.</li>
-        <li>‘소리로 듣기’ 버튼을 누르면 설명을 읽어 줍니다.</li>
-      </ol>
-    </section>
+    <!-- 1. 번호로 찾기 -->
+    <form class="ask find" id="findForm">
+      <input id="findInput" type="text" inputmode="numeric" autocomplete="off" placeholder="작품 번호 (예: 101)" aria-label="작품 번호 입력">
+      <button type="submit">찾기</button>
+    </form>
+    <p class="notice" id="findMsg" aria-live="polite"></p>
+
+    <!-- 2. 전시관 지도 (전시관 이름은 js/home.js 의 HALLS 에서 수정) -->
+    <h2 class="section">전시관 지도</h2>
+    <div class="map">
+      <svg viewBox="0 0 400 320" role="group" aria-label="상설전시관 지도" id="mapSvg">
+        <g id="halls"></g>
+        <path class="door" d="M170 286 v24 M230 286 v24"/>
+        <text class="entry" x="200" y="306" text-anchor="middle">입구</text>
+        <g id="pins"></g>
+      </svg>
+    </div>
+
+    <!-- 3. 전시관별 작품 목록 (자동 생성) -->
+    <h2 class="section">작품 목록</h2>
+    <div id="list"></div>
   </main>
 
-  <script src="/js/common.js"></script>
-  <script>
-    document.getElementById("exhibit-form").addEventListener("submit", (event) => {
-      event.preventDefault();
-      const id = document.getElementById("exhibit-id").value.trim();
-      if (id) location.href = `/exhibit.html?id=${encodeURIComponent(id)}`;
-    });
-  </script>
+</div>
+<script src="js/common.js"></script>
+<script src="js/home.js"></script>
 </body>
 </html>
