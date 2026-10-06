@@ -33,7 +33,7 @@ const Speech = {
   speak(text) {
     if (!this.supported || !text) return;
     this.stop();
-    const u = new SpeechSynthesisUtterance(text);
+    const u = new SpeechSynthesisUtterance(cleanForSpeech(text));
     u.lang = "ko-KR";
     u.rate = 0.9;               // 조금 천천히
     u.onend = u.onerror = () => this._set(false);
@@ -97,4 +97,15 @@ const exhibitUrl = (id) => `exhibit.html?id=${encodeURIComponent(id)}`;
 function hallNumber(hall) {
   const m = String(hall || "").match(/(\d+)\s*관/);
   return m ? Number(m[1]) : null;
+}
+
+
+/* 소리로 읽을 때만 한자 빼기 (화면 글자는 그대로)
+   예: "길상화(吉祥畵)" → "길상화", "효(孝)·제(悌)" → "효·제" */
+function cleanForSpeech(text) {
+  return String(text || "")
+    .replace(/\s*[(（][^()（）]*[\u3400-\u9FFF\uF900-\uFAFF][^()（）]*[)）]/g, "")
+    .replace(/[\u3400-\u4DBF\u4E00-\u9FFF\uF900-\uFAFF]+/g, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
 }
