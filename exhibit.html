@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>작품 설명 | 큐레이터즈 AI 도슨트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="index.html">큐레이터즈 AI 도슨트</a>
+    <button class="sizebtn" id="sizeBtn" type="button" aria-pressed="false">글자 크게</button>
+  </header>
+
+  <a class="back" href="index.html">← 처음으로</a>
+
+  <!-- 작품을 찾지 못했을 때 -->
+  <p class="notice big" id="notFound" hidden>해당 번호의 작품이 없어요. 처음 화면으로 돌아가 다시 골라 주세요.</p>
+
+  <main id="exhibit" hidden>
+
+    <!-- 1. 작품 정보 -->
+    <article class="label">
+      <p class="where" id="dWhere"></p>
+      <h1 class="title" id="dTitle" tabindex="-1"></h1>
+      <p class="meta" id="dMeta"></p>
+
+      <!-- 2. 설명 수준 선택 -->
+      <div class="tabs" role="tablist" aria-label="설명 수준">
+        <button type="button" role="tab" id="tabEasy" aria-selected="true">쉬운 설명</button>
+        <button type="button" role="tab" id="tabDetail" aria-selected="false">자세한 설명</button>
+      </div>
+      <div class="desc" id="dDesc" aria-live="polite"></div>
+
+      <!-- 3. 소리로 듣기 -->
+      <button class="listen" id="listenBtn" type="button" aria-pressed="false" hidden>소리로 듣기</button>
+    </article>
+
+    <!-- 4. AI 도슨트 질문 -->
+    <section class="ai" aria-labelledby="aiTitle">
+      <h2 id="aiTitle">AI 도슨트에게 물어보기</h2>
+      <p class="hint">궁금한 것을 누르거나 직접 적어 보세요.</p>
+      <div class="chips" id="chips"></div>
+      <form class="ask" id="askForm">
+        <input id="askInput" type="text" maxlength="200" autocomplete="off" placeholder="예: 이건 언제 쓰던 물건이에요?" aria-label="질문 입력">
+        <button type="submit">묻기</button>
+      </form>
+      <div class="qa" id="qa" aria-live="polite"></div>
+    </section>
+
+    <!-- 5. 맞춤 추천: 같은 전시관의 다른 작품 -->
+    <section class="recommend" id="recBox" hidden aria-labelledby="recTitle">
+      <h2 id="recTitle">이 작품이 좋았다면</h2>
+      <ul class="list" id="recList"></ul>
+    </section>
+
+    <!-- 6. 이전 / 다음 작품 -->
+    <nav class="pager" aria-label="작품 이동">
+      <a id="prevLink">← 이전 작품</a>
+      <a id="nextLink">다음 작품 →</a>
+    </nav>
+  </main>
+
+</div>
+<script src="js/common.js"></script>
+<script src="js/exhibit.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>큐레이터즈 AI 도슨트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="index.html">큐레이터즈 AI 도슨트</a>
+    <button class="sizebtn" id="sizeBtn" type="button" aria-pressed="false">글자 크게</button>
+  </header>
+
+  <main>
+    <h1>어떤 작품이 궁금하세요?</h1>
+    <p class="lead">작품 옆 번호를 입력하거나, 지도에서 번호를 눌러 주세요.</p>
+
+    <!-- 1. 번호로 찾기 -->
+    <form class="ask find" id="findForm">
+      <input id="findInput" type="text" inputmode="numeric" autocomplete="off" placeholder="작품 번호 (예: 101)" aria-label="작품 번호 입력">
+      <button type="submit">찾기</button>
+    </form>
+    <p class="notice" id="findMsg" aria-live="polite"></p>
+
+    <!-- 2. 전시관 지도 (전시관 이름은 js/home.js 의 HALLS 에서 수정) -->
+    <h2 class="section">전시관 지도</h2>
+    <div class="map">
+      <svg viewBox="0 0 400 320" role="group" aria-label="상설전시관 지도" id="mapSvg">
+        <g id="halls"></g>
+        <path class="door" d="M170 286 v24 M230 286 v24"/>
+        <text class="entry" x="200" y="306" text-anchor="middle">입구</text>
+        <g id="pins"></g>
+      </svg>
+    </div>
+
+    <!-- 3. 전시관별 작품 목록 (자동 생성) -->
+    <h2 class="section">작품 목록</h2>
+    <div id="list"></div>
+  </main>
+
+</div>
+<script src="js/common.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
