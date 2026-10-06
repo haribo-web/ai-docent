@@ -19,16 +19,17 @@
 
   <main>
     <h1>어떤 작품이 궁금하세요?</h1>
-    <p class="lead">작품 옆 번호를 입력하거나, 지도에서 번호를 눌러 주세요.</p>
+    <p class="lead">작품 이름을 입력하거나, 지도나 목록에서 작품을 눌러 주세요.</p>
 
-    <!-- 1. 번호로 찾기 -->
-    <form class="ask find" id="findForm">
-      <input id="findInput" type="text" inputmode="numeric" autocomplete="off" placeholder="작품 번호 (예: 101)" aria-label="작품 번호 입력">
+    <!-- 1. 작품 이름으로 찾기 -->
+    <form class="ask find" id="findForm" role="search">
+      <input id="findInput" type="search" autocomplete="off" placeholder="작품 이름 (예: 상여, 감모여재도)" aria-label="작품 이름 입력">
       <button type="submit">찾기</button>
     </form>
     <p class="notice" id="findMsg" aria-live="polite"></p>
+    <ul class="list results" id="results" hidden></ul> <!-- 이름이 비슷한 작품이 여러 개일 때 -->
 
-    <!-- 2. 전시관 지도 (전시관 이름은 js/home.js 의 HALLS 에서 수정) -->
+    <!-- 2. 전시관 지도 (전시관 이름은 js/home.js 의 HALL_NAMES 에서 수정) -->
     <h2 class="section">전시관 지도</h2>
     <div class="map">
       <svg viewBox="0 0 400 320" role="group" aria-label="상설전시관 지도" id="mapSvg">

@@ -8,6 +8,24 @@
 - 화면: HTML + CSS + 순수 JavaScript. React 같은 프레임워크나 빌드 도구를 쓰지 않는다.
 - 서버: `api/` 폴더의 Vercel 서버리스 함수 (Node.js, ES 모듈, `export default function handler(req, res)`).
 - 데이터: `public/data/*.json` 파일. 데이터베이스를 쓰지 않는다.
+  - `exhibits.json`은 `작품 정리_정리본.xlsx`와 `data/exhibit-ids.json`에서 `npm run build:data`(`scripts/build-data.js`, 1번 담당)로 만든다. 직접 고치지 않는다.
+- AI: 기본은 Groq 무료 요금제(`api/_lib/groq.js`, fetch로 호출), 예비는 Claude(`api/_lib/claude.js`, `@anthropic-ai/sdk`).
+  - 답변 규칙은 `api/_lib/prompt.js` 한 곳에서 관리한다. AI 서비스를 바꿔도 규칙은 그대로 쓴다.
+  - `GROQ_API_KEY` → Groq, 없고 `ANTHROPIC_API_KEY`만 있으면 Claude, 둘 다 없으면 "준비 중" 답변.
+  - 관람객 질문 내용은 서버 기록(console)에 남기지 않는다.
+- 회원가입·로그인·결제 등 개인정보를 받는 기능은 만들지 않는다.
+
+## 개인정보와 데이터 흐름
+
+- 위치정보(GPS, Geolocation API), 카메라, 마이크를 쓰지 않는다. 쓰려면 팀 논의를 먼저 거친다.
+- 서버로 보내는 정보는 질문할 때의 `{exhibitId, level, question}`뿐이다. 검색·목록·설명 전환·음성 읽기·글자 크기는 브라우저에서 처리한다.
+- 서버는 IP 주소를 그대로 보관하지 않는다. 요청 제한에는 해시 값만 1분 동안 메모리에 둔다.
+- 받은 AI 답변은 브라우저 탭 안(sessionStorage)에만 저장해 같은 질문을 다시 보내지 않는다.
+- **작품 식별은 작품명 기준이다 (팀 최종 결정).** 관람객에게 작품 번호(101 등)를 보여 주거나 입력받지 않는다.
+- 코드 안에서는 작품 고유 ID(데이터의 `slug`, 예: `gammoyeojaedo`)로 작품을 가리킨다. 화면은 불러올 때 이것을 `ex.id`로 쓴다(`public/js/common.js`).
+  - ID는 `data/exhibit-ids.json`에 고정되어 있으며 작품명·행 순서로 다시 계산하지 않는다.
+  - 데이터의 옛 번호 칸(`id`의 숫자, `number`)은 화면과 AI 어디에서도 쓰지 않는다.
+- AI 요청은 `{exhibitId(고유 ID), name(작품명), level, question}`. 서버는 고유 ID로 찾고, 없으면 작품명으로 찾는다(`api/docent.js`).
 - 배포: Vercel. 로컬 실행은 `npm run dev` (`dev-server.js`).
 - npm 패키지는 꼭 필요할 때만 추가한다.
 

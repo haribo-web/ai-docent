@@ -1,14 +1,16 @@
 /* =========================================================
-   전시물 설명 화면 동작   (주소 예: exhibit.html?id=101)
+   전시물 설명 화면 동작   (주소 예: exhibit.html?id=gammoyeojaedo)
+   - 주소의 id 는 작품 고유 ID입니다. 관람객 화면에는 작품 이름만 보여 줍니다.
    ========================================================= */
 
 /* ---------- [AI 담당과의 약속] 연결 설정 ----------
    AI 코드의 요청·응답 형식이 다르면 이 세 곳만 고치면 됩니다.       */
 const DOCENT_API = "/api/docent";
 
-// 보내는 값: 작품명 기준으로 작품 정보를 찾으므로 name 을 보냄 (id 도 함께)
+// 보내는 값: 작품 고유 ID + 작품 이름(서버는 ID로 찾고, 없으면 이름으로 찾음)
+//           + 지금 보고 있는 설명 수준(쉬운/자세한 → 답변 길이)
 function buildRequest(ex, question) {
-  return { name: ex.name, id: ex.id, question };
+  return { exhibitId: ex.id, name: ex.name, level: mode, question };
 }
 
 // 받는 값: { answer: "..." } (reply / text / message 로 와도 읽음)
@@ -39,7 +41,7 @@ let mode = "easy";      // "easy" 쉬운 설명 / "detail" 자세한 설명
   $("exhibit").hidden = false;
 
   // 1. 작품 정보
-  $("dWhere").textContent = [ex.hall, `${ex.id}번`].filter(Boolean).join(" · ");
+  $("dWhere").textContent = [ex.exhibition, ex.hall].filter(Boolean).join(" · ");
   $("dTitle").textContent = ex.name;
   $("dMeta").textContent = ex.era || "";
   renderDesc();
@@ -171,9 +173,8 @@ function addSpeakButton(box, text) {
 function recItem(e) {
   const li = document.createElement("li");
   const a = document.createElement("a");
-  a.href = exhibitUrl(e.id);
-  a.innerHTML = `<span class="num"></span><span><span class="t"></span><br><span class="s"></span></span>`;
-  a.querySelector(".num").textContent = e.id;
+  a.href = exhibitUrl(e.id);   // 화면에는 작품 이름만, 주소에는 작품 고유 ID
+  a.innerHTML = `<span><span class="t"></span><br><span class="s"></span></span>`;
   a.querySelector(".t").textContent = e.name;
   a.querySelector(".s").textContent = e.era || "";
   li.appendChild(a);

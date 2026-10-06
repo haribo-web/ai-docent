@@ -17,8 +17,10 @@ const PORT = process.env.PORT || 3000;
 try {
   const env = await fs.readFile(path.join(ROOT, ".env"), "utf8");
   for (const line of env.split(/\r?\n/)) {
-    const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)\s*$/);
-    if (match && !(match[1] in process.env)) process.env[match[1]] = match[2];
+    const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*?)\s*$/);
+    if (!match || match[1] in process.env) continue;
+    // KEY="값" 또는 KEY='값' 처럼 따옴표로 감싸도 따옴표는 빼고 읽는다.
+    process.env[match[1]] = match[2].replace(/^(['"])(.*)\1$/, "$2");
   }
 } catch {
   // .env가 없어도 실행에는 문제 없음

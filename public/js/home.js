@@ -1,5 +1,7 @@
 /* =========================================================
-   첫 화면 동작: 번호로 찾기, 전시 지도, 전시별 작품 목록
+   첫 화면 동작: 작품 이름으로 찾기, 전시 지도, 전시별 작품 목록
+   - 관람객에게는 작품 이름만 보여 줍니다. (작품 번호는 쓰지 않음)
+   - 작품을 고르면 작품 고유 ID(ex.id, 예: gammoyeojaedo)로 설명 화면에 연결합니다.
    - 전시 구역은 데이터의 hall 값을 보고 자동으로 만듭니다.
      (hall 이 1~9 처럼 숫자여도, "상설전시관 1관" 같은 글이어도 됩니다)
    ========================================================= */
@@ -48,18 +50,44 @@ const MAP = { left: 12, width: 376, top: 12, gap: 8, cellH: 104, maxCols: 3, ent
   // 3. 전시별 목록
   halls.forEach((key) => addGroup(hallLabel(key), groups.get(key)));
 
-  // 4. 번호로 찾기
+  // 4. 작품 이름으로 찾기
+  //    - 띄어쓰기 상관없이, 이름 일부만 입력해도 찾음 (예: "감모" → 감모여재도)
+  //    - 하나만 맞으면 바로 이동, 여러 개면 아래에 목록으로 보여 줌
   $("findForm").onsubmit = (e) => {
     e.preventDefault();
     const raw = $("findInput").value.trim();
-    if (!raw) { showMsg("작품 번호를 입력해 주세요.", true); return; }
-    const hit = exhibits.find((ex) => ex.id === raw || Number(ex.id) === Number(raw));
-    if (hit) go(hit.id);
-    else showMsg(`${raw}번 작품을 찾지 못했어요. 작품 옆 번호를 다시 확인해 주세요.`, true);
+    $("results").hidden = true;
+    $("results").innerHTML = "";
+
+    if (!raw) { showMsg("작품 이름을 입력해 주세요.", true); return; }
+
+    const q = normalize(raw);
+    const exact = exhibits.filter((ex) => normalize(ex.name) === q || normalize(shortName(ex.name)) === q);
+    const partial = exhibits.filter((ex) => normalize(ex.name).includes(q));
+    const hits = exact.length ? exact : partial;
+
+    if (hits.length === 1) { go(hits[0].id); return; }
+    if (hits.length === 0) {
+      showMsg(`'${raw}'(으)로 찾은 작품이 없어요. 이름을 짧게 줄여서 다시 입력해 보세요.`, true);
+      return;
+    }
+    showMsg(`'${raw}'(으)로 찾은 작품이 ${hits.length}개 있어요. 보고 싶은 작품을 눌러 주세요.`);
+    hits.forEach((ex) => $("results").appendChild(exhibitItem(ex)));
+    $("results").hidden = false;
   };
 })();
 
 /* ---------- 도움 함수 ---------- */
+// 비교용: 띄어쓰기·괄호·따옴표·기호를 빼고 소문자로 맞춤 (괄호 안 한자로도 찾을 수 있음)
+function normalize(s) {
+  return String(s || "").toLowerCase().replace(/[\s()\[\]·.,\-_/'"‘’“”《》「」『』]/g, "");
+}
+
+// 괄호 안 한자 등을 뺀 짧은 이름 (예: "감모여재도(感慕如在圖)" → "감모여재도")
+function shortName(name) {
+  return String(name || "").replace(/\([^)]*\)/g, "").replace(/\s+/g, " ").trim();
+}
+
 function firstNumber(s) {
   const m = String(s).match(/\d+/);
   return m ? Number(m[0]) : 9999;     // 숫자가 없으면 맨 뒤로
@@ -123,20 +151,20 @@ function drawPins(list, r) {
     const hasXY = typeof ex.x === "number" && typeof ex.y === "number";
     const x = hasXY ? ex.x : r.x + r.w * ((k % cols) + 0.5) / cols;
     const y = hasXY ? ex.y : areaTop + stepY * (Math.floor(k / cols) + 0.5);
-    const label = ex.id.length > 3 ? ex.id.slice(-3) : ex.id;   // 긴 번호는 끝 3자리만
-    const font = Math.max(7, radius * (label.length > 2 ? 0.66 : 0.85));
+    const label = shortName(ex.name).replace(/\s+/g, "").slice(0, 2);   // 핀에는 작품 이름 앞 2글자
+    const font = Math.max(7, radius * 0.7);
 
     const pin = document.createElementNS(SVG_NS, "g");
     pin.setAttribute("class", "pin");
     pin.setAttribute("tabindex", "0");
     pin.setAttribute("role", "link");
-    pin.setAttribute("aria-label", `${ex.id}번 ${ex.name}`);
+    pin.setAttribute("aria-label", ex.name);
     pin.innerHTML = `
       <title></title>
       <circle class="ring" cx="${x}" cy="${y}" r="${radius + 4}"/>
       <circle class="dot"  cx="${x}" cy="${y}" r="${radius}"/>
       <text x="${x}" y="${y + font * 0.35}" text-anchor="middle" font-size="${font}"></text>`;
-    pin.querySelector("title").textContent = `${ex.id}번 ${ex.name}`;
+    pin.querySelector("title").textContent = ex.name;
     pin.querySelector("text").textContent = label;
     pin.onclick = () => go(ex.id);
     pin.onkeydown = (e) => {
@@ -162,9 +190,8 @@ function addGroup(title, list) {
 function exhibitItem(ex) {
   const li = document.createElement("li");
   const a = document.createElement("a");
-  a.href = exhibitUrl(ex.id);
-  a.innerHTML = `<span class="num"></span><span><span class="t"></span><br><span class="s"></span></span>`;
-  a.querySelector(".num").textContent = ex.id;
+  a.href = exhibitUrl(ex.id);   // 화면에는 작품 이름만, 주소에는 작품 고유 ID
+  a.innerHTML = `<span><span class="t"></span><br><span class="s"></span></span>`;
   a.querySelector(".t").textContent = ex.name;
   a.querySelector(".s").textContent = ex.era || "";
   li.appendChild(a);
