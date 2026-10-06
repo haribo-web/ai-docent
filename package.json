@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "node dev-server.js",
-    "build:data": "node scripts/build-exhibits.js",
+    "build:data": "node scripts/build-data.js",
     "try:ai": "node scripts/try-questions.js"
   },
   "engines": {

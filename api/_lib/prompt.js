@@ -36,7 +36,7 @@ export const ANSWER_RULES = `당신은 국립민속박물관 상설전시관 3 �
 
 [질문의 범위]
 - 이 전시물이나 전시 주제(한국인의 일생, 일생의례, 전통 생활문화)와 관계없는 질문에는, 정중하게 이 전시물에 관해 물어봐 달라고 안내합니다.
-- 다른 전시물에 대해 물으면, 그 전시물은 첫 화면의 전시물 목록에서 골라 질문해 달라고 안내합니다.
+- 다른 전시물에 대해 물으면, 첫 화면에서 그 작품 이름을 검색하거나 지도·작품 목록에서 골라 질문해 달라고 안내합니다. 작품 번호는 말하지 않습니다.
 
 [조심할 내용]
 - 상례(장례)와 제례(제사)에 관한 질문에는 차분하고 정중한 말투를 씁니다. 관람객이 최근 가족을 잃었을 수도 있습니다.
@@ -50,11 +50,11 @@ export const LEVEL_RULES = {
   detail: "[답변 길이] 자세한 설명 모드입니다. 역사·문화적 배경까지 포함해 4~7문장으로 답합니다.",
 };
 
-// AI에게 넘겨줄 전시물 정보. 출처(sources)와 URL은 넘기지 않는다.
+// AI에게 넘겨줄 전시물 정보. 출처(sources)와 URL, 화면용 다듬은 설명·소리용 글은 넘기지 않는다.
+// (엑셀 원문 칸만 넘겨서 '확인 필요' 표시까지 AI가 볼 수 있게 한다)
+const EXHIBITION = "국립민속박물관 상설전시관 3 《한국인의 일생》";
 const EXHIBIT_FIELDS = [
-  ["title", "작품명"],
   ["artist", "작가/제작자"],
-  ["chapter", "챕터"],
   ["basicDescription", "기본 설명"],
   ["workInfo", "작품 정보"],
   ["historicalContext", "역사·문화적 배경"],
@@ -68,9 +68,14 @@ export function buildSystemPrompt(exhibit, level) {
 }
 
 export function buildExhibitContext(exhibit) {
+  // 데이터 칸 이름: 작품명 title(엑셀 원문)/name(화면용), 전시 구역 chapter/hall(예: "9부 제례")
+  const title = exhibit.title || exhibit.name || "";
+  const section = exhibit.chapter || exhibit.hall || "";
   const lines = EXHIBIT_FIELDS.filter(([key]) => exhibit[key]).map(([key, label]) => `${label}: ${exhibit[key]}`);
   return `<전시물_정보>
-전시관: ${exhibit.hall}
+전시관: ${EXHIBITION}
+전시 구역: ${section}
+작품명: ${title}
 ${lines.join("\n")}
 </전시물_정보>`;
 }

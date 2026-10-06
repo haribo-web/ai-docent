@@ -1,6 +1,9 @@
 // AI 도슨트에게 질문하는 API
-// 예: POST /api/docent  { "exhibitId": "gammoyeojaedo", "level": "easy" | "detail", "question": "..." }
-// exhibitId는 작품 고유 ID다. 예전 임시 번호(예: "901")로 와도 같은 작품을 찾는다(호환용).
+// 예: POST /api/docent
+//     { "exhibitId": "gammoyeojaedo", "name": "감모여재도(感慕如在圖)", "level": "easy" | "detail", "question": "..." }
+//
+// 작품 찾는 순서: 작품 고유 ID(exhibitId, 데이터의 slug) → 없으면 작품 이름(name).
+// 작품 번호(예: 101)는 쓰지 않는다. 응답의 exhibitId도 항상 작품 고유 ID다.
 //
 // 검사를 통과한 질문만 AI에게 보낸다. (답변 규칙: _lib/prompt.js)
 // - GROQ_API_KEY가 있으면 Groq (_lib/groq.js) ← 기본
@@ -23,6 +26,37 @@ function pickAi() {
 
 export const MAX_QUESTION_LENGTH = 200;
 const LEVELS = ["easy", "detail"];
+
+// ── 작품 찾기 ──
+// 작품 고유 ID: 데이터의 slug (data/exhibit-ids.json에 고정). slug 칸이 없는 데이터면 id 칸.
+function exhibitKey(item) {
+  return String(item.slug || item.id || "").trim();
+}
+
+// 작품 이름: 화면용 name, 없으면 엑셀 원문 title
+function exhibitName(item) {
+  return String(item.name || item.title || "").trim();
+}
+
+// 이름 비교용: 띄어쓰기·괄호·따옴표·기호를 빼고 소문자로 맞춤 (화면 검색과 같은 방식)
+function normalizeName(s) {
+  return String(s || "").toLowerCase().replace(/[\s()\[\]·.,\-_/'"‘’“”《》「」『』]/g, "");
+}
+
+function findExhibit(requestedId, requestedName) {
+  if (requestedId) {
+    const byId = exhibits.find((item) => exhibitKey(item) === requestedId);
+    if (byId) return byId;
+  }
+  if (requestedName) {
+    const wanted = normalizeName(requestedName);
+    const byName = exhibits.filter(
+      (item) => normalizeName(exhibitName(item)) === wanted || normalizeName(item.title) === wanted
+    );
+    if (byName.length === 1) return byName[0]; // 이름이 겹치면 어느 작품인지 알 수 없으므로 찾지 않음
+  }
+  return null;
+}
 
 // 같은 사람이 너무 자주 질문하지 못하게 막는다. (AI 사용료 보호)
 // 개인정보 보호: IP 주소는 그대로 보관하지 않고, 되돌릴 수 없는 값(해시)으로 바꾼 뒤 1분 동안만 메모리에 둔다.
@@ -68,19 +102,19 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "요청 형식이 올바르지 않습니다." });
   }
 
-  const requestedId = String(body.exhibitId ?? "").trim();
+  const requestedId = String(body.exhibitId ?? body.slug ?? body.id ?? "").trim();
+  const requestedName = typeof body.name === "string" ? body.name.trim() : "";
   const question = typeof body.question === "string" ? body.question.trim() : "";
   const level = LEVELS.includes(body.level) ? body.level : "easy";
 
-  if (!requestedId) {
+  if (!requestedId && !requestedName) {
     return res.status(400).json({ error: "어떤 전시물에 대한 질문인지 알 수 없습니다." });
   }
-  const exhibit =
-    exhibits.find((item) => item.id === requestedId) || exhibits.find((item) => item.number === requestedId);
+  const exhibit = findExhibit(requestedId, requestedName);
   if (!exhibit) {
     return res.status(404).json({ error: "해당 전시물을 찾을 수 없습니다." });
   }
-  const exhibitId = exhibit.id; // 응답에는 항상 고유 ID를 돌려준다
+  const exhibitId = exhibitKey(exhibit); // 응답에는 항상 작품 고유 ID를 돌려준다
   if (!question) {
     return res.status(400).json({ error: "질문을 입력해 주세요." });
   }
@@ -97,7 +131,7 @@ export default async function handler(req, res) {
       exhibitId,
       level,
       question,
-      answer: `AI 도슨트 기능은 준비 중입니다. ('${exhibit.title}'에 대한 질문을 받았어요.)`,
+      answer: `AI 도슨트 기능은 준비 중입니다. ('${exhibitName(exhibit)}'에 대한 질문을 받았어요.)`,
       placeholder: true,
     });
   }
