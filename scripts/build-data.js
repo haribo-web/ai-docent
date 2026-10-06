@@ -10,6 +10,7 @@
 //     hall : "4부 관직과 직업"처럼 챕터 이름. 앞의 숫자로 지도 칸이 자동으로 나뉜다.
 //     descriptionEasy   : 쉬운 설명 (핵심 2~3문장, 한자 표기 뺌)
 //     descriptionDetail : 자세한 설명 (소개·배경·의미·추가 이야기, 빈 줄로 문단 구분)
+//     nameSpeech, speechEasy, speechDetail : 소리로 듣기용 글 (한자·기호를 빼서 자연스럽게 읽힘)
 // - AI(2번)용: 엑셀 원문 필드를 그대로 둔다. (title, basicDescription, historicalContext 등)
 //     엑셀 글을 줄이거나 고치지 않은 원문이라, '확인 필요' 표시도 그대로 남아 있다.
 //     slug 는 작품 고유 영문 ID (data/exhibit-ids.json 에 고정, 예: gammoyeojaedo)
@@ -315,7 +316,22 @@ function describe(item) {
   return {
     descriptionEasy: easy.join("\n\n"),
     descriptionDetail: detail.join("\n\n"),
+    speechEasy: forSpeech(easy.join(" ")),
+    speechDetail: forSpeech(detail.join(" ")),
   };
+}
+
+// 소리로 듣기용 글: 한자 표기·기호를 빼서 음성이 자연스럽게 읽도록
+//   '활옷(闊衣)' → '활옷', '공주·옹주' → '공주, 옹주', '1478~1548' → '1478에서 1548'
+function forSpeech(text) {
+  return stripHanja(text)
+    .replace(/[『』「」〈〉《》]/g, "")
+    .replace(/·/g, ", ")
+    .replace(/(\d)\s*~\s*(\d)/g, "$1에서 $2")
+    .replace(/~/g, "에서 ")
+    .replace(/→/g, "에서 ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 // ── 실행 ──
@@ -349,6 +365,7 @@ const exhibits = dataRows.map(({ rowNumber, cells }) => {
     // 화면(3번)용
     id: number,
     name: item.title,
+    nameSpeech: forSpeech(item.title),
     hall: item.chapter,
     era: eraOf(info),
     ...describe(item),
