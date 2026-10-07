@@ -1,0 +1,50 @@
+/* ===== 관람 노트 (색과 글꼴은 style.css 의 변수를 그대로 씀) ===== */
+
+/* 첫 화면 바로가기 */
+.note-entry{display:flex;align-items:center;gap:.7rem;text-decoration:none;background:var(--surface);border:2px solid var(--gold);border-radius:16px;padding:.7rem 1rem;min-height:60px;margin:0 0 .4rem}
+.note-entry:hover{border-color:var(--indigo)}
+.note-entry-icon{font-size:1.4rem}
+.note-entry-text{flex:1;font-family:var(--serif);font-weight:700;font-size:1.05rem}
+.note-entry-count{color:var(--muted);font-size:.88rem}
+
+/* 설명 화면: 인상 깊어요 + 감상 메모 */
+.note-box{margin-top:1.4rem;background:var(--surface);border:2px solid var(--gold);border-radius:16px;padding:1.1rem}
+.note-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.7rem}
+.note-head h2{font-family:var(--serif);font-size:1.25rem;margin:0}
+.note-go{font-weight:700;color:var(--indigo);text-decoration:none;padding:.4rem 0;min-height:44px;display:inline-flex;align-items:center}
+.note-star{width:100%;border:2px solid var(--gold);background:transparent;border-radius:14px;padding:.7rem;min-height:56px;font-weight:700;font-size:1.05rem}
+.note-star[aria-pressed="true"]{background:var(--gold);color:#16233A}
+.note-label{display:block;font-weight:700;margin:1rem 0 .4rem}
+.note-memo{display:block;width:100%;font:inherit;font-size:1rem;line-height:1.6;padding:.6rem .8rem;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);resize:vertical;min-height:3.5rem}
+.note-memo:focus{border-color:var(--indigo);outline:none}
+.note-tools{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin-top:.5rem}
+.note-tools:empty{display:none}
+.note-mic{border:2px solid var(--jade);color:var(--jade);background:transparent;border-radius:999px;padding:.3rem .95rem;font-weight:600;min-height:44px}
+.note-mic[aria-pressed="true"]{background:var(--jade);color:#fff}
+.note-status{color:var(--muted);font-size:.85rem}
+
+/* 노트 화면: 작품 카드 */
+.note-list{list-style:none;padding:0;margin:1rem 0 0;display:grid;gap:.8rem}
+.note-list:empty{display:none}
+.note-card{background:var(--surface);border:2px solid var(--line);border-radius:16px;padding:.9rem 1rem 1rem}
+.note-card-top{display:flex;align-items:flex-start;gap:.6rem}
+.note-card-title{flex:1;font-family:var(--serif);font-weight:700;font-size:1.1rem;line-height:1.35;text-decoration:none;padding-top:.35rem}
+.note-card-title:hover{text-decoration:underline}
+.note-card-star{flex:none;width:52px;height:52px;border:2px solid var(--gold);background:transparent;border-radius:12px;font-size:1.4rem;line-height:1;color:var(--ink)}
+.note-card-star[aria-pressed="true"]{background:var(--gold);color:#16233A}
+.note-card-where{color:var(--jade);font-weight:700;font-size:.85rem;margin:.1rem 0 .6rem}
+.note-qa{margin-top:.7rem;color:var(--muted);font-size:.92rem}
+.note-qa summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.note-qa-q{font-weight:700;color:var(--ink);margin:.5rem 0 .15rem}
+.note-qa-a{margin:0;white-space:pre-wrap}
+
+/* 노트 화면: 감상문 + 공유 */
+.note-review{margin-top:1.4rem;background:var(--surface);border:2px dashed var(--line);border-radius:16px;padding:1.1rem}
+.note-review h2{font-family:var(--serif);margin:0 0 .2rem;font-size:1.25rem}
+.note-review .hint{color:var(--muted);font-size:.88rem;margin:0 0 .8rem}
+.note-make,.note-share{width:100%;border:none;border-radius:14px;font-weight:700;padding:.8rem;min-height:56px;font-size:1.05rem}
+.note-make{background:var(--indigo);color:var(--surface)}
+.note-make:disabled{opacity:.6;cursor:default}
+.note-share{background:var(--jade);color:#fff;margin-top:.8rem}
+.note-review-text{display:block;width:100%;margin-top:.8rem;font:inherit;font-size:1rem;line-height:1.75;padding:.8rem .9rem;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);resize:vertical}
+.note-clear{display:block;margin:1.6rem auto 0;border:none;background:transparent;color:var(--muted);text-decoration:underline;font-size:.9rem;min-height:44px}
