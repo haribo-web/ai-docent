@@ -172,7 +172,7 @@ function mountExhibitBox() {
       clearTimeout(timer);
       timer = setTimeout(() => {
         const ok = Note.update(id, (item) => { item.memo = memo.value.trim(); });
-        status.textContent = ok ? "저장했어요" : "이 브라우저에서는 저장할 수 없어요";
+        status.textContent = ok ? "저장했어요. 노트에서 AI가 감상문으로 다듬어 드려요." : "이 브라우저에서는 저장할 수 없어요";
       }, 400);
     };
     memo.addEventListener("input", save);
@@ -222,7 +222,7 @@ async function mountNotePage() {
 
   let exhibits = [];
   try { exhibits = await loadExhibits(); } catch (e) { exhibits = []; }
-  const byId = new Map(exhibits.map((e) => [e.id, e]));
+  let schedulePolish = () => {};   // 아래 '자동으로 다듬기'에서 채움
 
   // 노트에 있는 작품: 별표 → 메모 → 질문만 한 작품 순, 같은 무리에서는 전시 순서대로
   const rank = (item) => (item.star ? 0 : item.memo.trim() ? 1 : 2);
@@ -252,7 +252,7 @@ async function mountNotePage() {
     star.type = "button";
     star.setAttribute("aria-pressed", item.star);
     star.setAttribute("aria-label", item.star ? "인상 깊은 작품 표시 빼기" : "인상 깊은 작품으로 표시");
-    star.onclick = () => { Note.update(ex.id, (it) => { it.star = !it.star; }); render(); };
+    star.onclick = () => { Note.update(ex.id, (it) => { it.star = !it.star; }); render(); schedulePolish(); };
     top.append(title, star);
     li.append(top, el("p", "note-card-where", ex.hall || ""));
 
@@ -268,9 +268,10 @@ async function mountNotePage() {
       timer = setTimeout(() => Note.update(ex.id, (it) => { it.memo = memo.value.trim(); }), 400);
     };
     memo.addEventListener("input", save);
+    memo.addEventListener("change", () => { save(); schedulePolish(); });   // 다 쓰고 칸을 벗어나면 다시 다듬기
     li.appendChild(memo);
     const tools = el("div", "note-tools");
-    addMicButton(tools, memo, save);
+    addMicButton(tools, memo, () => { save(); schedulePolish(); });
     if (tools.childNodes.length) li.appendChild(tools);
 
     if (item.qa.length) {
@@ -298,52 +299,102 @@ async function mountNotePage() {
     return lines.join("\n").trim();
   }
 
-  // 감상문 만들기
-  $("makeReview").onclick = async () => {
-    const rows = entries().filter(({ item }) => item.star || item.memo.trim());
-    const msg = $("reviewMsg");
-    if (!rows.length) {
-      msg.textContent = "☆ 인상 깊은 작품을 표시하거나 감상을 적어 주세요.";
+  /* ---------- AI가 자동으로 감상문 다듬기 ----------
+     노트를 열거나 별표·감상을 고치면 잠시 뒤 AI가 감상문을 새로 다듬는다.
+     내용이 그대로면 저장해 둔 감상문을 다시 쓴다. (AI를 또 부르지 않음)
+     공유 창은 버튼을 누른 그 순간에만 열 수 있어서, 공유 전에 미리 다듬어 둔다. */
+  const REVIEW_KEY = "docent-note-review";
+  const readReview = () => {
+    try { return JSON.parse(localStorage.getItem(REVIEW_KEY)) || null; } catch (e) { return null; }
+  };
+  const saveReview = (r) => {
+    try { localStorage.setItem(REVIEW_KEY, JSON.stringify(r)); } catch (e) {}
+  };
+
+  const reviewBox = $("reviewText");
+  const reviewMsg = $("reviewMsg");
+  const shareBtn = $("shareBtn");
+  let polishing = false;
+  let again = false;
+  let polishTimer = null;
+
+  function reviewItems() {
+    return entries()
+      .filter(({ item }) => item.star || item.memo.trim())
+      .slice(0, 10)
+      .map(({ ex, item }) => ({
+        exhibitId: ex.id,
+        name: ex.name,
+        memo: item.memo.trim(),
+        qa: item.qa.slice(-3).map(({ q, a }) => ({ question: q, answer: a }))
+      }));
+  }
+
+  function showReview(r) {
+    reviewBox.value = r.text;
+    reviewBox.hidden = false;
+    reviewMsg.textContent = r.placeholder
+      ? "AI가 아직 준비 중이라 기본 형식으로 정리했어요. 고쳐 쓰셔도 돼요."
+      : "AI가 감상문으로 다듬었어요. 고쳐 쓰셔도 돼요.";
+  }
+
+  function setBusy(on) {
+    polishing = on;
+    shareBtn.disabled = on;
+    shareBtn.textContent = on ? "AI가 감상문을 다듬고 있어요…" : "📤 공유하기 (메모장·카카오톡 등)";
+    $("makeReview").disabled = on;
+  }
+
+  async function polish(force) {
+    const items = reviewItems();
+    if (!items.length) {
+      reviewBox.hidden = true;
+      reviewMsg.textContent = "☆ 인상 깊은 작품을 표시하거나 감상을 적으면, AI가 감상문으로 다듬어 드려요.";
       return;
     }
-    const btn = $("makeReview");
-    btn.disabled = true;
-    btn.textContent = "감상문을 쓰고 있어요…";
-    msg.textContent = "";
+    const sig = JSON.stringify(items);
+    const saved = readReview();
+    if (!force && saved && saved.sig === sig && saved.text) { showReview(saved); return; }
+    if (polishing) { again = true; return; }
+
+    setBusy(true);
+    reviewMsg.textContent = "AI가 감상문을 다듬고 있어요…";
     try {
       const res = await fetch(REVIEW_API, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          items: rows.slice(0, 10).map(({ ex, item }) => ({
-            exhibitId: ex.id,
-            name: ex.name,
-            memo: item.memo.trim(),
-            qa: item.qa.slice(-3).map(({ q, a }) => ({ question: q, answer: a }))
-          }))
-        })
+        body: JSON.stringify({ items })
       });
       const data = await res.json().catch(() => ({}));
       if (res.ok && data.review) {
-        $("reviewText").value = data.review;
-        $("reviewText").hidden = false;
-        msg.textContent = data.placeholder
-          ? "AI가 아직 준비 중이라 기본 형식으로 정리했어요. 자유롭게 고쳐 쓰셔도 돼요."
-          : "감상문을 만들었어요. 자유롭게 고쳐 쓰셔도 돼요.";
+        const r = { sig, text: data.review, placeholder: !!data.placeholder };
+        saveReview(r);
+        showReview(r);
       } else {
-        msg.textContent = data.error || "감상문을 만들지 못했어요. 잠시 뒤 다시 눌러 주세요.";
+        reviewMsg.textContent = data.error || "감상문을 다듬지 못했어요. '다시 다듬기'를 눌러 주세요.";
       }
     } catch (e) {
-      msg.textContent = "인터넷 연결을 확인한 뒤 다시 눌러 주세요.";
+      reviewMsg.textContent = "인터넷 연결을 확인한 뒤 '다시 다듬기'를 눌러 주세요.";
     } finally {
-      btn.disabled = false;
-      btn.textContent = "✨ 감상문 만들기";
+      setBusy(false);
+      if (again) { again = false; polish(false); }
     }
+  }
+  schedulePolish = () => {
+    clearTimeout(polishTimer);
+    polishTimer = setTimeout(() => polish(false), 1200);
   };
 
+  // 관람객이 감상문을 직접 고치면 고친 글을 그대로 저장 (별표·감상을 바꾸기 전까지 유지)
+  reviewBox.addEventListener("input", () => {
+    const r = readReview();
+    if (r) { r.text = reviewBox.value; saveReview(r); }
+  });
+  $("makeReview").onclick = () => polish(true);
+
   // 공유하기 (휴대폰: 메모 앱·카카오톡 등으로 보내기 / 공유를 못 하는 PC: 복사)
-  $("shareBtn").onclick = async () => {
-    const box = $("reviewText");
+  shareBtn.onclick = async () => {
+    const box = reviewBox;
     const text = (!box.hidden && box.value.trim()) || plainNote();
     const msg = $("shareMsg");
     msg.textContent = "";
@@ -369,12 +420,14 @@ async function mountNotePage() {
   $("clearBtn").onclick = () => {
     if (!confirm("관람 노트를 모두 지울까요? 지우면 되돌릴 수 없어요.")) return;
     Note.clear();
-    $("reviewText").value = "";
-    $("reviewText").hidden = true;
+    try { localStorage.removeItem(REVIEW_KEY); } catch (e) {}
+    reviewBox.value = "";
+    reviewBox.hidden = true;
     render();
   };
 
   render();
+  polish(false);   // 노트를 열면 바로 감상문을 다듬어 둔다
 }
 
 mountHomeLink();
