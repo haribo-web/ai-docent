@@ -111,16 +111,16 @@ function addMicButton(box, textarea, onText) {
   box.appendChild(btn);
 }
 
-/* ---------- 1. 첫 화면: 관람 노트 바로가기 ---------- */
+/* ---------- 1. 첫 화면: 관람 노트 바로가기 (작품 목록 맨 아래) ---------- */
 function mountHomeLink() {
-  const lead = document.querySelector(".lead");
-  if (!lead || !$("mapSvg")) return;   // 첫 화면에서만
+  const list = $("list");
+  if (!list || !$("mapSvg")) return;   // 첫 화면에서만
   const n = Note.count();
   const a = el("a", "note-entry");
   a.href = "note.html";
   a.append(el("span", "note-entry-icon", "📒"), el("span", "note-entry-text", "내 관람 노트"));
   a.appendChild(el("span", "note-entry-count", n ? `${n}개 작품` : "아직 비어 있어요"));
-  lead.after(a);
+  list.after(a);
 }
 
 /* ---------- 2. 설명 화면: ☆ 인상 깊어요 + 감상 메모 ---------- */
@@ -136,9 +136,9 @@ function mountExhibitBox() {
     const box = el("section", "note-box");
     box.setAttribute("aria-labelledby", "noteTitle");
     const head = el("div", "note-head");
-    const h2 = el("h2", null, "내 관람 노트");
+    const h2 = el("h2", null, "✍️ 관람평 남기기");
     h2.id = "noteTitle";
-    const go = el("a", "note-go", "노트 보기 →");
+    const go = el("a", "note-go", "내 관람 노트 →");
     go.href = "note.html";
     head.append(h2, go);
 
@@ -179,9 +179,11 @@ function mountExhibitBox() {
     addMicButton(tools, memo, save);
     tools.appendChild(status);
 
-    box.append(head, star, label, memo, tools);
-    const label0 = main.querySelector(".label");
-    (label0 || main.firstElementChild).after(box);
+    box.append(head, el("p", "note-hint", "작품 설명과 따로, 나만의 감상을 남기는 곳이에요."), star, label, memo, tools);
+    // 작품 설명·AI 질문·추천 다음, 맨 아래(이전/다음 버튼 위)에 따로 둔다
+    const pager = main.querySelector(".pager");
+    if (pager) pager.before(box);
+    else main.appendChild(box);
 
     watchQa(id);
   };

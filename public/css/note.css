@@ -1,18 +1,19 @@
 /* ===== 관람 노트 (색과 글꼴은 style.css 의 변수를 그대로 씀) ===== */
 
 /* 첫 화면 바로가기 */
-.note-entry{display:flex;align-items:center;gap:.7rem;text-decoration:none;background:var(--surface);border:2px solid var(--gold);border-radius:16px;padding:.7rem 1rem;min-height:60px;margin:0 0 .4rem}
+.note-entry{display:flex;align-items:center;gap:.7rem;text-decoration:none;background:var(--surface);border:2px dashed var(--line);border-radius:16px;padding:.7rem 1rem;min-height:60px;margin:1.6rem 0 0}
 .note-entry:hover{border-color:var(--indigo)}
 .note-entry-icon{font-size:1.4rem}
 .note-entry-text{flex:1;font-family:var(--serif);font-weight:700;font-size:1.05rem}
 .note-entry-count{color:var(--muted);font-size:.88rem}
 
 /* 설명 화면: 인상 깊어요 + 감상 메모 */
-.note-box{margin-top:1.4rem;background:var(--surface);border:2px solid var(--gold);border-radius:16px;padding:1.1rem}
-.note-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.7rem}
-.note-head h2{font-family:var(--serif);font-size:1.25rem;margin:0}
-.note-go{font-weight:700;color:var(--indigo);text-decoration:none;padding:.4rem 0;min-height:44px;display:inline-flex;align-items:center}
-.note-star{width:100%;border:2px solid var(--gold);background:transparent;border-radius:14px;padding:.7rem;min-height:56px;font-weight:700;font-size:1.05rem}
+.note-box{margin-top:1.8rem;padding-top:1.2rem;border-top:2px dashed var(--line)}
+.note-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.note-head h2{font-family:var(--serif);font-size:1.15rem;margin:0}
+.note-hint{color:var(--muted);font-size:.88rem;margin:.1rem 0 .8rem}
+.note-go{font-weight:700;color:var(--indigo);text-decoration:none;padding:.4rem 0;min-height:44px;display:inline-flex;align-items:center;font-size:.92rem}
+.note-star{width:100%;border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:.6rem;min-height:52px;font-weight:700}
 .note-star[aria-pressed="true"]{background:var(--gold);color:#16233A}
 .note-label{display:block;font-weight:700;margin:1rem 0 .4rem}
 .note-memo{display:block;width:100%;font:inherit;font-size:1rem;line-height:1.6;padding:.6rem .8rem;border:2px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink);resize:vertical;min-height:3.5rem}
