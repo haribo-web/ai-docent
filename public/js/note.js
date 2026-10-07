@@ -61,6 +61,20 @@ const Note = {
   }
 };
 
+/* ---------- 감상 키워드 (누르면 문장이 감상 칸에 들어감) ---------- */
+const MEMO_KEYWORDS = [
+  { label: "아름다워요", sentence: "참 아름다웠어요." },
+  { label: "색이 고와요", sentence: "색이 참 고왔어요." },
+  { label: "화려해요", sentence: "생각보다 화려했어요." },
+  { label: "정교해요", sentence: "솜씨가 정말 정교했어요." },
+  { label: "신기해요", sentence: "처음 보는 거라 신기했어요." },
+  { label: "뭉클해요", sentence: "보고 있으니 마음이 뭉클했어요." },
+  { label: "가족이 생각나요", sentence: "가족이 생각났어요." },
+  { label: "옛날이 떠올라요", sentence: "옛날 생각이 떠올랐어요." },
+  { label: "지금과 비교돼요", sentence: "지금의 모습과 비교해 보게 됐어요." },
+  { label: "더 알고 싶어요", sentence: "더 알아보고 싶어졌어요." }
+];
+
 /* ---------- 노트 화면 전용 스타일 불러오기 ---------- */
 (function addStyle() {
   if (document.querySelector('link[href="css/note.css"]')) return;
@@ -175,11 +189,88 @@ function mountExhibitBox() {
         status.textContent = ok ? "저장했어요. 노트에서 AI가 감상문으로 다듬어 드려요." : "이 브라우저에서는 저장할 수 없어요";
       }, 400);
     };
-    memo.addEventListener("input", save);
-    addMicButton(tools, memo, save);
-    tools.appendChild(status);
+    // 키워드 버튼: 누르면 그 문장이 감상 칸에 들어가고, 다시 누르면 빠진다
+    const keywords = el("div", "note-keywords");
+    keywords.setAttribute("role", "group");
+    keywords.setAttribute("aria-label", "감상 키워드");
+    const paintKeywords = () => {
+      keywords.querySelectorAll("button").forEach((b) => {
+        b.setAttribute("aria-pressed", memo.value.includes(b.dataset.sentence));
+      });
+    };
+    MEMO_KEYWORDS.forEach(({ label: word, sentence }) => {
+      const b = el("button", "note-keyword", word);
+      b.type = "button";
+      b.dataset.sentence = sentence;
+      b.onclick = () => {
+        memo.value = memo.value.includes(sentence)
+          ? memo.value.replace(sentence, "").replace(/\s{2,}/g, " ").trim()
+          : (memo.value.trim() + " " + sentence).trim();
+        memo.value = memo.value.slice(0, memo.maxLength);
+        paintKeywords();
+        save();
+      };
+      keywords.appendChild(b);
+    });
+    paintKeywords();
 
-    box.append(head, el("p", "note-hint", "작품 설명과 따로, 나만의 감상을 남기는 곳이에요."), star, label, memo, tools);
+    memo.addEventListener("input", () => { paintKeywords(); save(); });
+    addMicButton(tools, memo, () => { paintKeywords(); save(); });
+
+    // ✨ AI로 다듬기: 키워드·메모를 자연스러운 문장으로 완성 (되돌리기 가능)
+    const polishBtn = el("button", "note-polish", "✨ AI로 다듬기");
+    polishBtn.type = "button";
+    const undoBtn = el("button", "note-undo", "되돌리기");
+    undoBtn.type = "button";
+    undoBtn.hidden = true;
+    let before = "";
+    polishBtn.onclick = async () => {
+      const text = memo.value.trim();
+      if (!text) { status.textContent = "키워드를 누르거나 한 줄 적은 뒤 눌러 주세요."; return; }
+      clearTimeout(timer);                                   // 기다리던 자동 저장을 지금 바로 하고
+      Note.update(id, (item) => { item.memo = text; });      // (저장 안내가 다듬기 안내를 덮지 않게)
+      polishBtn.disabled = true;
+      polishBtn.textContent = "다듬는 중…";
+      status.textContent = "";
+      try {
+        const res = await fetch(REVIEW_API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ mode: "memo", items: [{ exhibitId: id, memo: text }] })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.memo && !data.placeholder) {
+          before = text;
+          memo.value = data.memo.slice(0, memo.maxLength);
+          undoBtn.hidden = false;
+          paintKeywords();
+          save();
+          status.textContent = "다듬었어요. 마음에 안 들면 되돌리기를 눌러 주세요.";
+        } else {
+          status.textContent = data.placeholder ? "AI가 아직 준비 중이에요. 적은 감상은 그대로 저장돼요." : (data.error || "다듬지 못했어요. 잠시 뒤 다시 눌러 주세요.");
+        }
+      } catch (e) {
+        status.textContent = "인터넷 연결을 확인한 뒤 다시 눌러 주세요.";
+      } finally {
+        polishBtn.disabled = false;
+        polishBtn.textContent = "✨ AI로 다듬기";
+      }
+    };
+    undoBtn.onclick = () => {
+      memo.value = before;
+      undoBtn.hidden = true;
+      paintKeywords();
+      save();
+    };
+    tools.append(polishBtn, undoBtn, status);
+
+    box.append(
+      head,
+      el("p", "note-hint", "작품 설명과 따로, 나만의 감상을 남기는 곳이에요."),
+      star, label,
+      el("p", "note-hint", "키워드를 누르면 문장이 들어가요. 직접 적어도 돼요."),
+      keywords, memo, tools
+    );
     // 작품 설명·AI 질문·추천 다음, 맨 아래(이전/다음 버튼 위)에 따로 둔다
     const pager = main.querySelector(".pager");
     if (pager) pager.before(box);
