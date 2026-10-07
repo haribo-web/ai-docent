@@ -23,6 +23,13 @@
 .note-mic{border:2px solid var(--jade);color:var(--jade);background:transparent;border-radius:999px;padding:.3rem .95rem;font-weight:600;min-height:44px}
 .note-mic[aria-pressed="true"]{background:var(--jade);color:#fff}
 .note-status{color:var(--muted);font-size:.85rem}
+.note-keywords{display:flex;flex-wrap:wrap;gap:.45rem;margin:0 0 .6rem}
+.note-keyword{border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:.3rem .85rem;font-weight:600;font-size:.92rem;min-height:44px}
+.note-keyword[aria-pressed="true"]{border-color:var(--indigo);background:var(--indigo);color:var(--surface)}
+.note-polish{border:2px solid var(--indigo);color:var(--indigo);background:transparent;border-radius:999px;padding:.3rem .95rem;font-weight:700;min-height:44px}
+.note-polish:disabled{opacity:.6;cursor:default}
+.note-undo{border:none;background:transparent;color:var(--muted);text-decoration:underline;min-height:44px;padding:0 .3rem}
+.note-status{flex-basis:100%}
 
 /* 노트 화면: 작품 카드 */
 .note-list{list-style:none;padding:0;margin:1rem 0 0;display:grid;gap:.8rem}
