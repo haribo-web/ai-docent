@@ -3,34 +3,63 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1849C6">
 <title>큐레이터즈 AI 도슨트</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<div class="wrap">
 
-  <header class="top">
-    <a class="brand" href="index.html">큐레이터즈 AI 도슨트</a>
+<header class="site-header">
+  <div class="site-header-in">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 3 3 7.5h18L12 3zM5 9.5v7M9.7 9.5v7M14.3 9.5v7M19 9.5v7M3.5 19.5h17"/></svg>
+      </span>
+      <span class="brand-text">큐레이터즈 <b>AI 도슨트</b></span>
+    </a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <a href="#mapSection">전시 지도</a>
+      <a href="#listSection">작품 목록</a>
+      <a href="note.html">내 관람 노트</a>
+    </nav>
     <button class="sizebtn" id="sizeBtn" type="button" aria-pressed="false">글자 크게</button>
-  </header>
+  </div>
+</header>
 
-  <main>
-    <h1>어떤 작품이 궁금하세요?</h1>
-    <p class="lead">작품 이름을 입력하거나, 지도나 목록에서 작품을 눌러 주세요.</p>
+<!-- 대표 영역: 전시 소개 + 작품 이름으로 찾기 -->
+<section class="hero">
+  <div class="hero-in">
+    <p class="eyebrow">국립민속박물관 상설전시관 3</p>
+    <h1>한국인의 일생,<br>AI 도슨트와 함께 걸어요</h1>
+    <p class="lead">출생부터 제례까지, 작품 이야기를 쉬운 설명과 목소리로 만나 보세요. 궁금한 건 AI 도슨트에게 바로 물어볼 수 있어요.</p>
 
     <!-- 1. 작품 이름으로 찾기 -->
     <form class="ask find" id="findForm" role="search">
+      <svg class="find-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
       <input id="findInput" type="search" autocomplete="off" placeholder="작품 이름 (예: 상여, 감모여재도)" aria-label="작품 이름 입력">
       <button type="submit">찾기</button>
     </form>
     <p class="notice" id="findMsg" aria-live="polite"></p>
     <ul class="list results" id="results" hidden></ul> <!-- 이름이 비슷한 작품이 여러 개일 때 -->
 
-    <!-- 2. 전시관 지도 (전시관 이름은 js/home.js 의 HALL_NAMES 에서 수정) -->
-    <h2 class="section">전시관 지도</h2>
+    <ul class="hero-feats" aria-label="이용할 수 있는 기능">
+      <li><span aria-hidden="true">🔊</span> 소리로 듣기</li>
+      <li><span aria-hidden="true">💬</span> AI에게 질문</li>
+      <li><span aria-hidden="true">📒</span> 나만의 관람 노트</li>
+    </ul>
+  </div>
+</section>
+
+<main class="wrap home-grid">
+
+  <!-- 2. 전시관 지도 (전시관 이름은 js/home.js 의 HALL_NAMES 에서 수정) -->
+  <section class="panel map-panel" id="mapSection" aria-labelledby="mapTitle">
+    <div class="panel-head">
+      <h2 class="section" id="mapTitle">전시관 지도</h2>
+      <p>번호 핀을 누르면 작품 설명으로 이동해요</p>
+    </div>
     <div class="map">
       <svg viewBox="0 0 400 320" role="group" aria-label="상설전시관 지도" id="mapSvg">
         <g id="halls"></g>
@@ -39,13 +68,26 @@
         <g id="pins"></g>
       </svg>
     </div>
+  </section>
 
-    <!-- 3. 전시관별 작품 목록 (자동 생성) -->
-    <h2 class="section">작품 목록</h2>
+  <!-- 3. 전시관별 작품 목록 (자동 생성) -->
+  <section class="panel list-panel" id="listSection" aria-labelledby="listTitle">
+    <div class="panel-head">
+      <h2 class="section" id="listTitle">작품 목록</h2>
+      <p>전시 순서대로 모았어요</p>
+    </div>
     <div id="list"></div>
-  </main>
+  </section>
 
-</div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-in">
+    <p><b>큐레이터즈 AI 도슨트</b> · 국립민속박물관 상설전시관 3 《한국인의 일생》</p>
+    <p>누구나 쉽게 듣고 묻는 문화복지 도슨트 서비스</p>
+  </div>
+</footer>
+
 <script src="js/common.js"></script>
 <script src="js/home.js"></script>
 <script src="js/note.js"></script>

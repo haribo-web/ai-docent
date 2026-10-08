@@ -75,38 +75,151 @@ let mode = "easy";      // "easy" 쉬운 설명 / "detail" 자세한 설명
 function descText() {
   return mode === "easy" ? ex.descriptionEasy : ex.descriptionDetail;
 }
+let sentEls = [];   // 설명 문장들 (읽는 문장 강조용)
+
 function renderDesc() {
   $("tabEasy").setAttribute("aria-selected", mode === "easy");
   $("tabDetail").setAttribute("aria-selected", mode === "detail");
   $("dDesc").innerHTML = "";
+  sentEls = [];
   const text = descText() || "설명을 준비하고 있어요.";
   text.split(/\n\s*\n/).forEach((para) => {     // 빈 줄로 문단 나누기
     const p = document.createElement("p");
-    p.textContent = para.trim();
+    splitSentences(para).forEach((s) => {        // 문장마다 나눠 두면 읽는 문장을 강조할 수 있음
+      const span = document.createElement("span");
+      span.className = "sent";
+      span.textContent = s;
+      const i = sentEls.length + 1;              // 0번은 작품 이름
+      if (Speech.supported) span.onclick = () => startDesc(i);
+      sentEls.push(span);
+      p.append(span, " ");
+    });
     $("dDesc").appendChild(p);
   });
+  resetPlayer();
 }
 $("tabEasy").onclick = () => { Speech.stop(); mode = "easy"; renderDesc(); };
 $("tabDetail").onclick = () => { Speech.stop(); mode = "detail"; renderDesc(); };
 
-/* ---------- 3. 소리로 듣기 ---------- */
-if (Speech.supported) $("listenBtn").hidden = false;
+/* ---------- 3. 소리로 듣기 (오디오 플레이어) ----------
+   작품 이름 → 설명 문장 순서로 한 문장씩 읽고, 읽는 문장을 화면에 강조한다.
+   재생/일시정지(이어 듣기), 이전/다음 문장, 빠르기, 목소리 고르기, 문장 눌러서 그 부분부터 듣기 */
 let speakingWhat = null;   // "desc" 설명 / 답변 버튼
+
+if (Speech.supported) {
+  $("player").hidden = false;
+  $("playerHint").hidden = false;
+}
+
+const descSentences = () => [ex.name, ...sentEls.map((s) => s.textContent)];
+
+function clearHighlight() {
+  document.querySelectorAll(".reading").forEach((el) => el.classList.remove("reading"));
+}
+
+function setProgress(done, total, label) {
+  $("playerCount").textContent = label != null ? label : total ? `${done} / ${total}` : "";
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  $("playerFill").style.width = pct + "%";
+  $("playerBar").setAttribute("aria-valuenow", pct);
+}
+
+function resetPlayer() {
+  clearHighlight();
+  setProgress(0, descSentences().length, `${descSentences().length}문장`);
+  updatePlayer();
+}
+
+function highlight(i, total) {
+  clearHighlight();
+  const el = i === 0 ? $("dTitle") : sentEls[i - 1];
+  if (el) {
+    el.classList.add("reading");
+    const r = el.getBoundingClientRect();
+    if (i > 0 && (r.top < 80 || r.bottom > innerHeight - 20)) el.scrollIntoView({ block: "center", behavior: "smooth" });
+  }
+  setProgress(i + 1, total);
+}
+
+function startDesc(from = 0) {
+  Speech.play(descSentences(), {
+    onSentence: highlight,
+    onEnd: (finished) => {
+      clearHighlight();
+      if (speakingWhat === "desc") speakingWhat = null;
+      const n = descSentences().length;
+      if (finished) setProgress(1, 1, "다 들었어요 ✓");
+      else setProgress(0, n, `${n}문장`);           // 중간에 멈추면 처음 상태로
+      updatePlayer();
+    }
+  }, from);
+  speakingWhat = "desc";
+  updatePlayer();
+}
+
+function updatePlayer() {
+  const mine = speakingWhat === "desc";
+  const playing = mine && Speech.speaking;
+  const paused = mine && Speech.paused;
+  $("player").classList.toggle("is-playing", playing);
+  $("listenBtn").setAttribute("aria-pressed", playing);
+  $("listenBtn").setAttribute("aria-label", playing ? "일시정지" : paused ? "이어 듣기" : "설명 듣기");
+  $("playerLabel").textContent = playing ? "읽어 드리는 중" : paused ? "잠시 멈춤 · 누르면 이어서 들어요" : "설명 듣기";
+}
+
 Speech.onChange = (on) => {
-  if (!on) speakingWhat = null;
-  const descOn = on && speakingWhat === "desc";
-  $("listenBtn").setAttribute("aria-pressed", descOn);
-  $("listenBtn").textContent = descOn ? "듣기 멈추기" : "소리로 듣기";
+  updatePlayer();
   document.querySelectorAll(".a .speak").forEach((b) => {
     b.textContent = on && speakingWhat === b ? "멈추기" : "답변 듣기";
   });
 };
+
 $("listenBtn").onclick = () => {
-  if (Speech.speaking && speakingWhat === "desc") { Speech.stop(); return; }
-  Speech.speak(`${ex.name}. ${descText() || ""}`);
-  speakingWhat = "desc";
-  Speech.onChange(true);
+  const mine = speakingWhat === "desc";
+  if (mine && Speech.speaking) Speech.pause();
+  else if (mine && Speech.paused) Speech.resume();
+  else startDesc(0);
 };
+$("prevSent").onclick = () => {
+  if (speakingWhat === "desc") Speech.jump(Speech.index - 1);
+  else startDesc(0);
+};
+$("nextSent").onclick = () => {
+  if (speakingWhat === "desc") Speech.jump(Speech.index + 1);
+  else startDesc(1);
+};
+
+// 빠르기: 느리게 → 보통 → 빠르게
+function paintRate() {
+  const r = RATES.find((x) => x.value === Speech.rate) || RATES[1];
+  $("rateBtn").textContent = r.label;
+}
+$("rateBtn").onclick = () => {
+  const i = RATES.findIndex((x) => x.value === Speech.rate);
+  Speech.setRate(RATES[(i + 1) % RATES.length].value);
+  paintRate();
+};
+paintRate();
+
+// 목소리: 한국어 목소리가 2개 이상이면 고를 수 있게
+function fillVoices() {
+  const list = Speech.voices();
+  $("voiceBox").hidden = list.length < 2;
+  const current = Speech.voice();
+  $("voiceSel").innerHTML = "";
+  list.forEach((v) => {
+    const o = document.createElement("option");
+    o.value = v.name;
+    o.textContent = v.name.replace(/^(Microsoft|Google)\s*/i, "").replace(/\s*-\s*Korean.*$/i, "").replace(/\(Korean.*?\)/i, "").trim() || v.name;
+    o.selected = current && v.name === current.name;
+    $("voiceSel").appendChild(o);
+  });
+}
+if (Speech.supported) {
+  fillVoices();
+  speechSynthesis.addEventListener("voiceschanged", fillVoices);
+  $("voiceSel").onchange = () => Speech.setVoice($("voiceSel").value);
+}
 
 /* ---------- 4. AI 도슨트 질문 ---------- */
 $("askForm").onsubmit = (e) => {

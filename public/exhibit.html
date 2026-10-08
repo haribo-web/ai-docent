@@ -3,26 +3,41 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1849C6">
 <title>작품 설명 | 큐레이터즈 AI 도슨트</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+<header class="site-header">
+  <div class="site-header-in">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 3 3 7.5h18L12 3zM5 9.5v7M9.7 9.5v7M14.3 9.5v7M19 9.5v7M3.5 19.5h17"/></svg>
+      </span>
+      <span class="brand-text">큐레이터즈 <b>AI 도슨트</b></span>
+    </a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <a href="index.html#mapSection">전시 지도</a>
+      <a href="index.html#listSection">작품 목록</a>
+      <a href="note.html">내 관람 노트</a>
+    </nav>
+    <button class="sizebtn" id="sizeBtn" type="button" aria-pressed="false">글자 크게</button>
+  </div>
+</header>
+
 <div class="wrap">
 
-  <header class="top">
-    <a class="brand" href="index.html">큐레이터즈 AI 도슨트</a>
-    <button class="sizebtn" id="sizeBtn" type="button" aria-pressed="false">글자 크게</button>
-  </header>
-
-  <a class="back" href="index.html">← 처음으로</a>
+  <nav class="crumb" aria-label="현재 위치">
+    <a class="back" href="index.html">← 처음으로</a>
+  </nav>
 
   <!-- 작품을 찾지 못했을 때 -->
   <p class="notice big" id="notFound" hidden>작품을 찾지 못했어요. 처음 화면에서 작품 이름으로 다시 골라 주세요.</p>
 
-  <main id="exhibit" hidden>
+  <main id="exhibit" class="exhibit-layout" hidden>
 
     <!-- 1. 작품 정보 -->
     <article class="label">
@@ -35,10 +50,37 @@
         <button type="button" role="tab" id="tabEasy" aria-selected="true">쉬운 설명</button>
         <button type="button" role="tab" id="tabDetail" aria-selected="false">자세한 설명</button>
       </div>
-      <div class="desc" id="dDesc" aria-live="polite"></div>
 
-      <!-- 3. 소리로 듣기 -->
-      <button class="listen" id="listenBtn" type="button" aria-pressed="false" hidden>소리로 듣기</button>
+      <!-- 3. 소리로 듣기 (오디오 플레이어) -->
+      <div class="player" id="player" hidden>
+        <button class="player-play" id="listenBtn" type="button" aria-pressed="false" aria-label="설명 듣기">
+          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+          <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1.2"/><rect x="13.5" y="5" width="4" height="14" rx="1.2"/></svg>
+        </button>
+        <div class="player-body">
+          <div class="player-top">
+            <span class="player-label" id="playerLabel">설명 듣기</span>
+            <span class="player-count" id="playerCount"></span>
+          </div>
+          <div class="player-bar" id="playerBar" role="progressbar" aria-label="읽은 정도" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="playerFill"></span></div>
+          <div class="player-ctrl">
+            <button type="button" id="prevSent" aria-label="이전 문장">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6v12"/><path class="fill" d="M18 6.6v10.8a.8.8 0 0 1-1.25.66L9.6 12.66a.8.8 0 0 1 0-1.32l7.15-5.4A.8.8 0 0 1 18 6.6z"/></svg>
+            </button>
+            <button type="button" id="nextSent" aria-label="다음 문장">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.5 6v12"/><path class="fill" d="M6 6.6v10.8a.8.8 0 0 0 1.25.66l7.15-5.4a.8.8 0 0 0 0-1.32L7.25 5.94A.8.8 0 0 0 6 6.6z"/></svg>
+            </button>
+            <button type="button" class="player-rate" id="rateBtn" aria-label="읽는 빠르기 바꾸기">보통</button>
+            <label class="player-voice" id="voiceBox" hidden>
+              <span class="sr-only">목소리 고르기</span>
+              <select id="voiceSel"></select>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="desc" id="dDesc" aria-live="polite"></div>
+      <p class="player-hint" id="playerHint" hidden>문장을 누르면 그 문장부터 읽어 드려요.</p>
     </article>
 
     <!-- 4. AI 도슨트 질문 -->
@@ -67,6 +109,14 @@
   </main>
 
 </div>
+
+<footer class="site-footer">
+  <div class="site-footer-in">
+    <p><b>큐레이터즈 AI 도슨트</b> · 국립민속박물관 상설전시관 3 《한국인의 일생》</p>
+    <p>누구나 쉽게 듣고 묻는 문화복지 도슨트 서비스</p>
+  </div>
+</footer>
+
 <script src="js/common.js"></script>
 <script src="js/exhibit.js"></script>
 <script src="js/note.js"></script>

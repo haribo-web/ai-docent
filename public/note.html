@@ -3,50 +3,77 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1849C6">
 <title>내 관람 노트 | 큐레이터즈 AI 도슨트</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/note.css">
 </head>
 <body>
-<div class="wrap">
 
-  <header class="top">
-    <a class="brand" href="index.html">큐레이터즈 AI 도슨트</a>
+<header class="site-header">
+  <div class="site-header-in">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M12 3 3 7.5h18L12 3zM5 9.5v7M9.7 9.5v7M14.3 9.5v7M19 9.5v7M3.5 19.5h17"/></svg>
+      </span>
+      <span class="brand-text">큐레이터즈 <b>AI 도슨트</b></span>
+    </a>
+    <nav class="site-nav" aria-label="주요 메뉴">
+      <a href="index.html#mapSection">전시 지도</a>
+      <a href="index.html#listSection">작품 목록</a>
+      <a href="note.html" aria-current="page">내 관람 노트</a>
+    </nav>
     <button class="sizebtn" id="sizeBtn" type="button" aria-pressed="false">글자 크게</button>
-  </header>
+  </div>
+</header>
 
-  <a class="back" href="index.html">← 처음으로</a>
+<div class="wrap note-page">
+
+  <nav class="crumb" aria-label="현재 위치">
+    <a class="back" href="index.html">← 처음으로</a>
+  </nav>
 
   <main>
-    <h1>📒 내 관람 노트</h1>
-    <p class="lead">인상 깊었던 작품과 감상을 모아 두었어요. 기록은 이 기기에만 저장돼요.</p>
+    <div class="page-head">
+      <h1>📒 내 관람 노트</h1>
+      <p class="lead">인상 깊었던 작품과 감상을 모아 두었어요. 기록은 이 기기에만 저장돼요.</p>
+    </div>
 
     <!-- 노트가 비어 있을 때 -->
     <p class="notice big" id="noteEmpty" hidden>
       아직 모은 작품이 없어요. 작품 설명 화면에서 <b>☆ 인상 깊어요</b>를 누르거나 감상을 적어 보세요.
     </p>
 
-    <!-- 1. 모은 작품 (별표·메모·질문) -->
-    <ul class="note-list" id="noteList"></ul>
+    <div class="note-grid">
+      <!-- 1. 모은 작품 (별표·메모·질문) -->
+      <ul class="note-list" id="noteList"></ul>
 
-    <!-- 2. 감상문 만들기 + 공유하기 -->
-    <section class="note-review" id="reviewBox" hidden aria-labelledby="reviewTitle">
-      <h2 id="reviewTitle">✨ 오늘의 감상문</h2>
-      <p class="hint">별표한 작품과 적어 둔 감상을 AI가 자동으로 한 편의 글로 다듬어요. 공유하기를 누르면 메모장이나 카카오톡으로 보낼 수 있어요.</p>
-      <p class="notice" id="reviewMsg" aria-live="polite"></p>
-      <textarea class="note-review-text" id="reviewText" rows="12" aria-label="감상문 (고쳐 쓸 수 있어요)" hidden></textarea>
-      <button class="note-share" id="shareBtn" type="button">📤 공유하기 (메모장·카카오톡 등)</button>
-      <p class="notice" id="shareMsg" aria-live="polite"></p>
-      <button class="note-make" id="makeReview" type="button">↻ 다시 다듬기</button>
-    </section>
+      <!-- 2. 감상문 만들기 + 공유하기 -->
+      <section class="note-review" id="reviewBox" hidden aria-labelledby="reviewTitle">
+        <h2 id="reviewTitle">✨ 오늘의 감상문</h2>
+        <p class="hint">별표한 작품과 적어 둔 감상을 AI가 자동으로 한 편의 글로 다듬어요. 공유하기를 누르면 메모장이나 카카오톡으로 보낼 수 있어요.</p>
+        <p class="notice" id="reviewMsg" aria-live="polite"></p>
+        <textarea class="note-review-text" id="reviewText" rows="12" aria-label="감상문 (고쳐 쓸 수 있어요)" hidden></textarea>
+        <button class="note-share" id="shareBtn" type="button">📤 공유하기 (메모장·카카오톡 등)</button>
+        <p class="notice" id="shareMsg" aria-live="polite"></p>
+        <button class="note-make" id="makeReview" type="button">↻ 다시 다듬기</button>
+      </section>
+    </div>
 
     <button class="note-clear" id="clearBtn" type="button" hidden>관람 노트 모두 지우기</button>
   </main>
 
 </div>
+
+<footer class="site-footer">
+  <div class="site-footer-in">
+    <p><b>큐레이터즈 AI 도슨트</b> · 국립민속박물관 상설전시관 3 《한국인의 일생》</p>
+    <p>누구나 쉽게 듣고 묻는 문화복지 도슨트 서비스</p>
+  </div>
+</footer>
+
 <script src="js/common.js"></script>
 <script src="js/note.js"></script>
 </body>
